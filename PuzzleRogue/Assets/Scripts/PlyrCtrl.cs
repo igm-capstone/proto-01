@@ -5,7 +5,7 @@ public class PlyrCtrl : MonoBehaviour {
 
     //Movement Variables
     float horDir, verDir;
-    float horSpd = 5.0f;
+    float horSpd = 10.0f;
     float verSpd = 3.0f;
 
     // Components
@@ -31,7 +31,7 @@ public class PlyrCtrl : MonoBehaviour {
 
 
         // Update player speed
-        plrRgdBody.velocity = new Vector2(horSpd * horDir, verSpd * verDir);
+        plrRgdBody.velocity = new Vector2(horSpd * horDir, plrRgdBody.velocity.y);
 
     }
 }
