@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlyrCtrl : MonoBehaviour {
-
+public class PlyrCtrl : MonoBehaviour
+{
     //Movement Variables
     float horDir, verDir;
     float horSpd = 10.0f;
@@ -10,13 +10,11 @@ public class PlyrCtrl : MonoBehaviour {
 
     // Components
     Rigidbody plrRgdBody;
-
-	
+    	
     // Use this for initialization
 	void Awake ()
     {
         plrRgdBody = transform.GetComponent<Rigidbody>();
-
 
     }
 	
@@ -28,7 +26,6 @@ public class PlyrCtrl : MonoBehaviour {
         verDir = Input.GetAxis("Vertical");
 
         #endregion
-
 
         // Update player speed
         plrRgdBody.velocity = new Vector2(horSpd * horDir, plrRgdBody.velocity.y);
