@@ -35,7 +35,7 @@ public class PlaybackBehavior : MonoBehaviour
         {
             if (frameCount < recordedFrames.Length)
             {
-                actor.PerformAction(recordedFrames[frameCount].action);
+                actor.PerformActions(recordedFrames[frameCount].action);
                 frameCount++;
             }
             else
