@@ -4,9 +4,9 @@ using System.Collections;
 
 public class InputManager : MonoBehaviour
 {
-
     public void Update()
     {
-        
+
+
     }
 }

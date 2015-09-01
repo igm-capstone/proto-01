@@ -4,81 +4,64 @@ using System;
 [Flags]
 public enum Actions
 {
-    MoveUp = (1 << 0),
-    MoveDown = (1 << 1),
-    StopVertical = (1 << 2),
+    None = 0,
 
-    MoveLeft = (1 << 3),
-    MoveRight = (1 << 4),
-    StopHorizontal = (1 << 5),
+    MoveRight = (1 << 0),
+    MoveLeft = (1 << 1),
+    StopHorizontal = (1 << 2),
+
+    MoveUp = (1 << 3),
+    MoveDown = (1 << 4),
+    StopVertical = (1 << 5),
 }
 
 public class ActorBehaviour : MonoBehaviour
 {
     [SerializeField]
-    [Range(1, 2)]
-    short playerId = 1;
-
-    [SerializeField]
     [Range(1f, 20f)]
     float speed = 5;
 
-    Rigidbody _rigidbody;
+    public new Rigidbody rigidbody { get; private set; }
 
-    new Rigidbody rigidbody
+    void Awake()
     {
-        get { return _rigidbody ?? (_rigidbody = GetComponent<Rigidbody>()); }
+        rigidbody = GetComponent<Rigidbody>();
     }
 
-    public void PerformAction(Actions action)
+    public void PerformActions(Actions action)
     {
         var velocity = rigidbody.velocity;
 
+        if ((action & Actions.MoveRight) != 0)
+        {
+            velocity.x = speed;
+        }
+
+        if ((action & Actions.MoveLeft) != 0)
+        {
+            velocity.x = -speed;
+        }
+
+        if ((action & Actions.StopHorizontal) != 0)
+        {
+            velocity.x = 0;
+        }
 
         if ((action & Actions.MoveUp) != 0)
         {
-                velocity.x = -speed;
+            velocity.z = speed;
         }
 
-        
-        rigidbody.velocity = velocity;
-    }
+        if ((action & Actions.MoveDown) != 0)
+        {
+            velocity.z = -speed;
+        }
 
-    public void MoveUp()
-    {
-        var velocity = rigidbody.velocity;
-
-        velocity.y = speed;
-
-        rigidbody.velocity = velocity;
-    }
-
-    public void MoveDown()
-    {
-        var velocity = rigidbody.velocity;
-
-        velocity.y = -speed;
+        if ((action & Actions.StopVertical) != 0)
+        {
+            velocity.z = 0;
+        }
 
         rigidbody.velocity = velocity;
     }
-
-
-    public void StopVertical()
-    {
-        var velocity = rigidbody.velocity;
-
-        velocity.y = 0;
-
-        rigidbody.velocity = velocity;
-    }
-
-    public void StopHorizontal()
-    {
-        var velocity = rigidbody.velocity;
-
-        velocity.x = 0;
-
-        rigidbody.velocity = velocity;
-    }
-
 }

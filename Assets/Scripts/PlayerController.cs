@@ -2,25 +2,67 @@
 using System.Collections;
 
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(ActorBehaviour))]
+[RequireComponent(typeof(RecordBehavior))]
 public class PlayerController : MonoBehaviour {
 
     [SerializeField]
     [Range(1, 2)]
     short playerId = 1;
 
-    [SerializeField]
-    [Range(1f, 20f)]
-    float speed = 5;
+    ActorBehaviour actor;
+    RecordBehavior recorder;
 
-    Rigidbody _rigidbody;
-    new Rigidbody rigidbody
+    Vector3 currentVelocity;
+
+    public void Awake()
     {
-        get { return _rigidbody ?? (_rigidbody = GetComponent<Rigidbody>()); }
+        actor = GetComponent<ActorBehaviour>();
+        recorder = GetComponent<RecordBehavior>();
     }
 
-    Vector3 lastVelocity;
-
     public void Update()
+    {
+        var newVelocity = ReadPlayerInput();
+        var actions = Actions.None;
+
+        if (newVelocity.x != currentVelocity.x)
+        {
+            if (newVelocity.x == 0)
+            {
+                actions |= Actions.StopHorizontal;
+            }
+            else if (newVelocity.x == 1)
+            {
+                actions |= Actions.MoveRight;
+            }
+            else
+            {
+                actions |= Actions.MoveLeft;
+            }
+        }
+        
+        if (newVelocity.y != currentVelocity.y)
+        {
+            if (newVelocity.y == 0)
+            {
+                actions |= Actions.StopVertical;
+            }
+            else if (newVelocity.y == 1)
+            {
+                actions |= Actions.MoveUp;
+            }
+            else
+            {
+                actions |= Actions.MoveDown;
+            }
+        }
+
+        actor.PerformActions(actions);
+        recorder.RecordFrameAction(actions);
+    }
+
+    private Vector3 ReadPlayerInput()
     {
         // horizontal controls X axis while vertical controls Z axis
         var horizontal = Input.GetAxis("Horizontal_P" + playerId);
@@ -29,34 +71,11 @@ public class PlayerController : MonoBehaviour {
         var hasHorizontal = Mathf.Abs(horizontal) > 0.1f;
         var hasVertical = Mathf.Abs(vertical) > 0.1f;
 
-        var newVelocity = Vector3.zero;
+        var velocity = Vector3.zero;
 
-        if (!hasHorizontal)
-        {
-            newVelocity.x = 0;
-        }
-        else if (horizontal > 0)
-        {
-            newVelocity.x = speed;
-        }
-        else
-        {
-            newVelocity.x = -speed;
-        }
+        velocity.x = hasHorizontal ? horizontal > 0 ? 1 : -1 : 0;
+        velocity.z = hasVertical ? vertical > 0 ? 1 : -1 : 0;
 
-        if (!hasVertical)
-        {
-            newVelocity.z = 0;
-        }
-        else if (vertical > 0)
-        {
-            newVelocity.z = speed;
-        }
-        else
-        {
-            newVelocity.z = -speed;
-        }
-
-        rigidbody.velocity = newVelocity;
+        return velocity;
     }
 }
