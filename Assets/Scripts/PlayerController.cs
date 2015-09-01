@@ -4,6 +4,8 @@ using System.Collections;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour {
 
+    public GameObject playbackPrefab;
+
     [SerializeField]
     [Range(1, 2)]
     short playerId = 1;
@@ -58,5 +60,11 @@ public class PlayerController : MonoBehaviour {
         }
 
         rigidbody.velocity = newVelocity;
+    }
+
+    void InstantiatePlayback()
+    {
+        GameObject playbackGhost = Instantiate(playbackPrefab, transform.position + transform.forward, Quaternion.identity) as GameObject;
+        playbackGhost.GetComponent<PlaybackBehavior>().StartPlayback(GetComponent<RecordBehavior>().recordedFrames, PlaybackMode.RunOnce);
     }
 }

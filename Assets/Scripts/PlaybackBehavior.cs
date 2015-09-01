@@ -10,7 +10,7 @@ public enum PlaybackMode {
 [RequireComponent(typeof(ActorBehaviour))]
 public class PlaybackBehavior : MonoBehaviour 
 {
-    Frame[] recordedFrames;
+    public Frame[] recordedFrames;
     PlaybackMode mode;
     bool isPlaying = false;
     ActorBehaviour actor;
@@ -65,5 +65,6 @@ public class PlaybackBehavior : MonoBehaviour
     {
         isPlaying = false;
     }
+
 
 }
