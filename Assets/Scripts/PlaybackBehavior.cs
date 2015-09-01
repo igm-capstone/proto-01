@@ -2,13 +2,12 @@
 using System.Collections;
 using System.Linq;
 
-[RequireComponent(typeof(ActorBehaviour))]
-
 public enum PlaybackMode {
     RunOnce,
     Loop
 }
 
+[RequireComponent(typeof(ActorBehaviour))]
 public class PlaybackBehavior : MonoBehaviour 
 {
     Frame[] recordedFrames;
