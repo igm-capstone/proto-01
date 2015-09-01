@@ -5,7 +5,7 @@ using System.Linq;
 public class Frame
 {
     public int index;
-    public int[] actionIDs;
+    public Actions action;
 }
 
 public class RecordBehavior : MonoBehaviour 
@@ -60,11 +60,11 @@ public class RecordBehavior : MonoBehaviour
         isRecording = false;
     }
 
-    public void SetRecordedFrameParameters(int[] actionIDs)
+    public void RecordFrameAction(Actions action)
     {
         if (isRecording)
         {
-            recordedFrames[frameCount].actionIDs = actionIDs;
+            recordedFrames[frameCount].action = action;
         }
     }
 }
