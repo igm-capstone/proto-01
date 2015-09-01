@@ -42,13 +42,13 @@ public class PlayerController : MonoBehaviour {
             }
         }
         
-        if (newVelocity.y != currentVelocity.y)
+        if (newVelocity.z != currentVelocity.z)
         {
-            if (newVelocity.y == 0)
+            if (newVelocity.z == 0)
             {
                 actions |= Actions.StopVertical;
             }
-            else if (newVelocity.y == 1)
+            else if (newVelocity.z == 1)
             {
                 actions |= Actions.MoveUp;
             }
