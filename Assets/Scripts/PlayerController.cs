@@ -66,6 +66,7 @@ public class PlayerController : MonoBehaviour {
 
     private Vector3 ReadPlayerInput()
     {
+
         // horizontal controls X axis while vertical controls Z axis
         var horizontal = Input.GetAxis("Horizontal_P" + playerId);
         var vertical = Input.GetAxis("Vertical_P" + playerId);
@@ -78,18 +79,23 @@ public class PlayerController : MonoBehaviour {
         velocity.x = hasHorizontal ? horizontal > 0 ? 1 : -1 : 0;
         velocity.z = hasVertical ? vertical > 0 ? 1 : -1 : 0;
 
+        Debug.Log("process input");
         if (Input.GetButtonDown("A" + playerId))
         {
+            Debug.Log("start recording" + playerId);
             recorder.StartRecording();
         }
 
         if (Input.GetButtonUp("A" + playerId))
         {
+            Debug.Log("stop recording " + playerId);
             recorder.StopRecording();
+            InstantiatePlayback();
         }
 
         if (Input.GetButtonDown("X" + playerId))
         {
+            Debug.Log("start playback" + playerId);
             InstantiatePlayback();
         }
 
@@ -99,6 +105,6 @@ public class PlayerController : MonoBehaviour {
     void InstantiatePlayback()
     {
         GameObject playbackGhost = Instantiate(playbackPrefab, transform.position + transform.forward, Quaternion.identity) as GameObject;
-        playbackGhost.GetComponent<PlaybackBehavior>().StartPlayback(GetComponent<RecordBehavior>().recordedFrames, PlaybackMode.RunOnce);
+        playbackGhost.GetComponent<PlaybackBehavior>().StartPlayback(recorder.recordedFrames, PlaybackMode.RunOnce);
     }
 }
