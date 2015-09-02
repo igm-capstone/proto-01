@@ -78,6 +78,21 @@ public class PlayerController : MonoBehaviour {
         velocity.x = hasHorizontal ? horizontal > 0 ? 1 : -1 : 0;
         velocity.z = hasVertical ? vertical > 0 ? 1 : -1 : 0;
 
+        if (Input.GetButtonDown("A" + playerId))
+        {
+            recorder.StartRecording();
+        }
+
+        if (Input.GetButtonUp("A" + playerId))
+        {
+            recorder.StopRecording();
+        }
+
+        if (Input.GetButtonDown("X" + playerId))
+        {
+            InstantiatePlayback();
+        }
+
         return velocity;
     }
 
