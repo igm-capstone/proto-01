@@ -23,45 +23,51 @@ public class ActorBehaviour : MonoBehaviour
 
     public new Rigidbody rigidbody { get; private set; }
 
+    Vector3 velocity;
+
     void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
     }
 
-    public void PerformActions(Actions action)
+    private void FixedUpdate()
     {
-        var velocity = rigidbody.velocity;
+        velocity.y = rigidbody.velocity.y;
+        rigidbody.velocity = velocity;
+    }
 
-        if ((action & Actions.MoveRight) != 0)
+    public void PerformActions(Actions actions)
+    {
+        velocity = rigidbody.velocity;
+
+        if ((actions & Actions.MoveRight) != 0)
         {
             velocity.x = speed;
         }
 
-        if ((action & Actions.MoveLeft) != 0)
+        if ((actions & Actions.MoveLeft) != 0)
         {
             velocity.x = -speed;
         }
 
-        if ((action & Actions.StopHorizontal) != 0)
+        if ((actions & Actions.StopHorizontal) != 0)
         {
             velocity.x = 0;
         }
 
-        if ((action & Actions.MoveUp) != 0)
+        if ((actions & Actions.MoveUp) != 0)
         {
             velocity.z = speed;
         }
 
-        if ((action & Actions.MoveDown) != 0)
+        if ((actions & Actions.MoveDown) != 0)
         {
             velocity.z = -speed;
         }
 
-        if ((action & Actions.StopVertical) != 0)
+        if ((actions & Actions.StopVertical) != 0)
         {
             velocity.z = 0;
         }
-
-        rigidbody.velocity = velocity;
     }
 }

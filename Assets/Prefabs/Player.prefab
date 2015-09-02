@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2105f9672832ca041bc6b277173bc078, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: 100
+  duration: 10
 --- !u!114 &11487046
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -166,7 +166,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 0}
       propertyPath: duration
-      value: 100
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: playbackPrefab

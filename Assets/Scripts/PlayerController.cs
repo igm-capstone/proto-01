@@ -28,13 +28,29 @@ public class PlayerController : MonoBehaviour {
         var newVelocity = ReadPlayerInput();
         var actions = Actions.None;
 
-        if (newVelocity.x != currentVelocity.x)
+        var newKeyFrame = WriteVelocityActions(newVelocity, out actions);
+    
+        if (newKeyFrame)
         {
-            if (newVelocity.x == 0)
+            currentVelocity = newVelocity;
+
+            actor.PerformActions(actions);
+            recorder.RecordFrameAction(actions);
+        }
+    }
+
+    private bool WriteVelocityActions(Vector3 velocity, out Actions actions, bool force = false)
+    {
+        var newKeyFrame = false;
+
+        actions = Actions.None;
+        if (force || (velocity.x != currentVelocity.x))
+        {
+            if (velocity.x == 0)
             {
                 actions |= Actions.StopHorizontal;
             }
-            else if (newVelocity.x == 1)
+            else if (velocity.x == 1)
             {
                 actions |= Actions.MoveRight;
             }
@@ -42,15 +58,17 @@ public class PlayerController : MonoBehaviour {
             {
                 actions |= Actions.MoveLeft;
             }
+
+            newKeyFrame = true;
         }
-        
-        if (newVelocity.z != currentVelocity.z)
+
+        if (force || (velocity.z != currentVelocity.z))
         {
-            if (newVelocity.z == 0)
+            if (velocity.z == 0)
             {
                 actions |= Actions.StopVertical;
             }
-            else if (newVelocity.z == 1)
+            else if (velocity.z == 1)
             {
                 actions |= Actions.MoveUp;
             }
@@ -58,10 +76,11 @@ public class PlayerController : MonoBehaviour {
             {
                 actions |= Actions.MoveDown;
             }
+
+            newKeyFrame = true;
         }
 
-        actor.PerformActions(actions);
-        recorder.RecordFrameAction(actions);
+        return newKeyFrame;
     }
 
     private Vector3 ReadPlayerInput()
@@ -84,13 +103,15 @@ public class PlayerController : MonoBehaviour {
         {
             Debug.Log("start recording" + playerId);
             recorder.StartRecording();
+            var actions = Actions.None;
+            WriteVelocityActions(currentVelocity, out actions, true);
+            recorder.RecordFrameAction(actions);
         }
 
         if (Input.GetButtonUp("A" + playerId))
         {
             Debug.Log("stop recording " + playerId);
             recorder.StopRecording();
-            InstantiatePlayback();
         }
 
         if (Input.GetButtonDown("X" + playerId))
@@ -104,7 +125,7 @@ public class PlayerController : MonoBehaviour {
 
     void InstantiatePlayback()
     {
-        GameObject playbackGhost = Instantiate(playbackPrefab, transform.position + transform.forward, Quaternion.identity) as GameObject;
+        GameObject playbackGhost = Instantiate(playbackPrefab, transform.position + (currentVelocity == Vector3.zero ? Vector3.forward : currentVelocity), Quaternion.identity) as GameObject;
         playbackGhost.GetComponent<PlaybackBehavior>().StartPlayback(recorder.recordedFrames, PlaybackMode.RunOnce);
     }
 }

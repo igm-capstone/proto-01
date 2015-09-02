@@ -58,6 +58,7 @@ public class RecordBehavior : MonoBehaviour
 
     public void StopRecording () 
     {
+        recordedFrames = recordedFrames.Take(frameCount - 1).ToArray();
         isRecording = false;
     }
 
