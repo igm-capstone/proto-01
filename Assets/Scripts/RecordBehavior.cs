@@ -2,10 +2,10 @@
 using System.Collections;
 using System.Linq;
 
-public class Frame
+public struct Frame
 {
     public int index;
-    public int[] actionIDs;
+    public Actions action;
 }
 
 public class RecordBehavior : MonoBehaviour 
@@ -49,6 +49,7 @@ public class RecordBehavior : MonoBehaviour
     {
         if (duration > 0.0f) 
         {
+            frameCount = 0;
             maxRecordedFrames = (int)(duration / Time.fixedDeltaTime);
             recordedFrames = new Frame[maxRecordedFrames];
             isRecording = true;
@@ -60,11 +61,11 @@ public class RecordBehavior : MonoBehaviour
         isRecording = false;
     }
 
-    public void SetRecordedFrameParameters(int[] actionIDs)
+    public void RecordFrameAction(Actions action)
     {
         if (isRecording)
         {
-            recordedFrames[frameCount].actionIDs = actionIDs;
+            recordedFrames[frameCount].action = action;
         }
     }
 }
