@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Linq;
+using UnityEngine.UI;
 
 public enum PlaybackMode {
     RunOnce,
@@ -11,16 +12,19 @@ public enum PlaybackMode {
 public class PlaybackBehavior : MonoBehaviour 
 {
     public Frame[] recordedFrames;
+    public Slider sliderHP;
+    Renderer r;
     PlaybackMode mode;
     bool isPlaying = false;
     ActorBehaviour actor;
-
+    
     int frameCount = 0;
 
 	// Use this for initialization
 	void Awake()
     {
         actor = GetComponent<ActorBehaviour>();
+        r = GetComponent<Renderer>();
 	}
 	
 	// Update is called once per frame
@@ -45,6 +49,13 @@ public class PlaybackBehavior : MonoBehaviour
                 else if (mode == PlaybackMode.Loop)
                     frameCount = 0;
             }
+
+            sliderHP.value = 1.0f - ((float)frameCount / (float)recordedFrames.Length);
+            
+            Color current = r.materials[0].color;
+            current.a = 1.0f - ((float)frameCount / (float)recordedFrames.Length);
+            r.materials[0].color = current;
+
         }
     }
 
