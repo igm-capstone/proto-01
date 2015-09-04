@@ -15,7 +15,7 @@ GameObject:
   - 114: {fileID: 11443780}
   - 114: {fileID: 11494944}
   - 54: {fileID: 5496808}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlaybackGhost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -475,6 +475,10 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 3124597bb357d784b985e2411a4e06ad, type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 128400}
