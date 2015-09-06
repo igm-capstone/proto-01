@@ -58,7 +58,9 @@ public class PlaybackBehavior : MonoBehaviour
             }
 
             sliderHP.value = 1.0f - ((float)frameCount / (float)recordedFrames.Length);
-            
+            var m_Camera = Camera.main;
+            sliderHP.transform.LookAt(transform.position + m_Camera.transform.rotation * Vector3.back, m_Camera.transform.rotation * Vector3.up);
+
             Color current = r.materials[0].color;
             current.a = 1.0f - ((float)frameCount / (float)recordedFrames.Length);
             r.materials[0].color = current;
