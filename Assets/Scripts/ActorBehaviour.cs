@@ -36,38 +36,16 @@ public class ActorBehaviour : MonoBehaviour
         rigidbody.velocity = velocity;
     }
 
-    public void PerformActions(Actions actions)
+    public void PerformActions(float horizontal, float vertical)
     {
-        velocity = rigidbody.velocity;
-
-        if ((actions & Actions.MoveRight) != 0)
+        if (Mathf.Abs(horizontal) > Mathf.Epsilon || Mathf.Abs(vertical) > Mathf.Epsilon)
         {
-            velocity.x = speed;
+            transform.localRotation = Quaternion.Euler(0.0f, Mathf.Atan2(horizontal, vertical) * Mathf.Rad2Deg, 0.0f);
+            velocity = transform.forward * speed;
         }
-
-        if ((actions & Actions.MoveLeft) != 0)
+        else
         {
-            velocity.x = -speed;
-        }
-
-        if ((actions & Actions.StopHorizontal) != 0)
-        {
-            velocity.x = 0;
-        }
-
-        if ((actions & Actions.MoveUp) != 0)
-        {
-            velocity.z = speed;
-        }
-
-        if ((actions & Actions.MoveDown) != 0)
-        {
-            velocity.z = -speed;
-        }
-
-        if ((actions & Actions.StopVertical) != 0)
-        {
-            velocity.z = 0;
-        }
+            velocity = Vector3.zero;
+        }   
     }
 }

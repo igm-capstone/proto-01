@@ -25,87 +25,25 @@ public class PlayerController : MonoBehaviour {
 
     public void Update()
     {
-        var newVelocity = ReadPlayerInput();
-        var actions = Actions.None;
+        float horizontal, vertical;
+        ReadPlayerInput(out horizontal, out vertical);
+        actor.PerformActions(horizontal, vertical);
 
-        var newKeyFrame = WriteVelocityActions(newVelocity, out actions);
-    
-        if (newKeyFrame)
+        if (recorder.IsRecording())
         {
-            currentVelocity = newVelocity;
-
-            actor.PerformActions(actions);
-            recorder.RecordFrameAction(actions);
+            recorder.RecordFrameAction(horizontal, vertical, Mathf.Atan2(transform.forward.x, transform.forward.z));
         }
     }
 
-    private bool WriteVelocityActions(Vector3 velocity, out Actions actions, bool force = false)
+    private void ReadPlayerInput(out float horizontal, out float vertical)
     {
-        var newKeyFrame = false;
+        horizontal = Input.GetAxis("Horizontal_P" + playerId);
+        vertical = Input.GetAxis("Vertical_P" + playerId);
 
-        actions = Actions.None;
-        if (force || (velocity.x != currentVelocity.x))
-        {
-            if (velocity.x == 0)
-            {
-                actions |= Actions.StopHorizontal;
-            }
-            else if (velocity.x == 1)
-            {
-                actions |= Actions.MoveRight;
-            }
-            else
-            {
-                actions |= Actions.MoveLeft;
-            }
-
-            newKeyFrame = true;
-        }
-
-        if (force || (velocity.z != currentVelocity.z))
-        {
-            if (velocity.z == 0)
-            {
-                actions |= Actions.StopVertical;
-            }
-            else if (velocity.z == 1)
-            {
-                actions |= Actions.MoveUp;
-            }
-            else
-            {
-                actions |= Actions.MoveDown;
-            }
-
-            newKeyFrame = true;
-        }
-
-        return newKeyFrame;
-    }
-
-    private Vector3 ReadPlayerInput()
-    {
-
-        // horizontal controls X axis while vertical controls Z axis
-        var horizontal = Input.GetAxis("Horizontal_P" + playerId);
-        var vertical = Input.GetAxis("Vertical_P" + playerId);
-
-        var hasHorizontal = Mathf.Abs(horizontal) > 0.1f;
-        var hasVertical = Mathf.Abs(vertical) > 0.1f;
-
-        var velocity = Vector3.zero;
-
-        velocity.x = hasHorizontal ? horizontal > 0 ? 1 : -1 : 0;
-        velocity.z = hasVertical ? vertical > 0 ? 1 : -1 : 0;
-
-        Debug.Log("process input");
         if (Input.GetButtonDown("A" + playerId))
         {
             Debug.Log("start recording" + playerId);
             recorder.StartRecording();
-            var actions = Actions.None;
-            WriteVelocityActions(currentVelocity, out actions, true);
-            recorder.RecordFrameAction(actions);
         }
 
         if (Input.GetButtonUp("A" + playerId))
@@ -119,13 +57,21 @@ public class PlayerController : MonoBehaviour {
             Debug.Log("start playback" + playerId);
             InstantiatePlayback();
         }
-
-        return velocity;
     }
 
     void InstantiatePlayback()
     {
-        GameObject playbackGhost = Instantiate(playbackPrefab, transform.position + (currentVelocity == Vector3.zero ? Vector3.forward : currentVelocity), Quaternion.identity) as GameObject;
+        GameObject coordinateSpace = new GameObject();
+        coordinateSpace.transform.position = transform.position + transform.forward;
+        coordinateSpace.transform.rotation = transform.rotation;
+        coordinateSpace.transform.localScale = transform.localScale;
+
+        GameObject playbackGhost = Instantiate(playbackPrefab) as GameObject;
+        playbackGhost.GetComponent<PlaybackBehavior>().coordinateSpace = coordinateSpace;
+        playbackGhost.transform.localScale = coordinateSpace.transform.localScale;
+        playbackGhost.transform.position = coordinateSpace.transform.position;
+        playbackGhost.transform.rotation = coordinateSpace.transform.rotation;
+        playbackGhost.transform.localRotation = Quaternion.identity;
         playbackGhost.GetComponent<PlaybackBehavior>().StartPlayback(recorder.recordedFrames, PlaybackMode.RunOnce);
     }
 }
