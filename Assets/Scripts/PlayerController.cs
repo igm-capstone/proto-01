@@ -4,16 +4,20 @@ using System.Collections;
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(ActorBehaviour))]
 [RequireComponent(typeof(RecordBehavior))]
+[RequireComponent(typeof(PlayerHUD))]
 public class PlayerController : MonoBehaviour {
 
     public GameObject playbackPrefab;
+    public int maxPlaybacks = 2;
 
     [SerializeField]
     [Range(1, 2)]
     short playerId = 1;
+    int availablePlaybacks = 0;
 
     ActorBehaviour actor;
     RecordBehavior recorder;
+    PlayerHUD hud;
 
     Vector3 currentVelocity;
 
@@ -21,6 +25,7 @@ public class PlayerController : MonoBehaviour {
     {
         actor = GetComponent<ActorBehaviour>();
         recorder = GetComponent<RecordBehavior>();
+        hud = GetComponent<PlayerHUD>();
     }
 
     public void Update()
@@ -42,19 +47,19 @@ public class PlayerController : MonoBehaviour {
 
         if (Input.GetButtonDown("A" + playerId))
         {
-            Debug.Log("start recording" + playerId);
+            //Debug.Log("start recording" + playerId);
             recorder.StartRecording();
         }
 
         if (Input.GetButtonUp("A" + playerId))
         {
-            Debug.Log("stop recording " + playerId);
+            //Debug.Log("stop recording " + playerId);
             recorder.StopRecording();
         }
 
         if (Input.GetButtonDown("X" + playerId))
         {
-            Debug.Log("start playback" + playerId);
+            //Debug.Log("start playback" + playerId);
             InstantiatePlayback();
         }
     }
@@ -74,4 +79,11 @@ public class PlayerController : MonoBehaviour {
         playbackGhost.transform.localRotation = Quaternion.identity;
         playbackGhost.GetComponent<PlaybackBehavior>().StartPlayback(recorder.recordedFrames, PlaybackMode.RunOnce);
     }
+
+    public void resetPlaybackCounter()
+    {
+        availablePlaybacks = maxPlaybacks;
+        hud.setPlaybackCounter(availablePlaybacks);
+    }
+
 }
