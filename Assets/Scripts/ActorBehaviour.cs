@@ -24,6 +24,12 @@ public class ActorBehaviour : MonoBehaviour
     public new Rigidbody rigidbody { get; private set; }
 
     Vector3 velocity;
+    float jumpImpulse = 80;
+
+    bool jump;
+
+    bool isGrounded;
+
 
     void Awake()
     {
@@ -33,10 +39,29 @@ public class ActorBehaviour : MonoBehaviour
     private void FixedUpdate()
     {
         velocity.y = rigidbody.velocity.y;
+        if (jump)
+        {
+            velocity.y += jumpImpulse * .2f;
+            jumpImpulse = .8f;
+        }
+
         rigidbody.velocity = velocity;
     }
 
-    public void PerformActions(float horizontal, float vertical)
+    public void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.tag == "Platform") {
+            isGrounded = true;
+        }
+
+    }
+
+    public void OnCollisionExit(Collision collision)
+    {
+
+    }
+
+    public void PerformActions(float horizontal, float vertical, bool jump = false)
     {
         if (Mathf.Abs(horizontal) > Mathf.Epsilon || Mathf.Abs(vertical) > Mathf.Epsilon)
         {
@@ -46,6 +71,8 @@ public class ActorBehaviour : MonoBehaviour
         else
         {
             velocity = Vector3.zero;
-        }   
+        }
+
+        this.jump = jump;
     }
 }
