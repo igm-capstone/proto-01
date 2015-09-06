@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour {
     public GameObject playbackPrefab;
     public int maxPlaybacks = 2;
 
+    public Vector3 PlyrStartPos;
+
     [SerializeField]
     [Range(1, 2)]
     short playerId = 1;
@@ -26,6 +28,10 @@ public class PlayerController : MonoBehaviour {
         actor = GetComponent<ActorBehaviour>();
         recorder = GetComponent<RecordBehavior>();
         hud = GetComponent<PlayerHUD>();
+
+        // Record Player Start Position when the Scene Starts
+        PlyrStartPos = GetComponent<Transform>().position;
+
     }
 
     public void Update()
