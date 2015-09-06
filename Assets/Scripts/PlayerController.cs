@@ -66,18 +66,25 @@ public class PlayerController : MonoBehaviour {
 
     void InstantiatePlayback()
     {
-        GameObject coordinateSpace = new GameObject();
-        coordinateSpace.transform.position = transform.position + transform.forward;
-        coordinateSpace.transform.rotation = transform.rotation;
-        coordinateSpace.transform.localScale = transform.localScale;
+        if (availablePlaybacks > 0)
+        {
+            GameObject coordinateSpace = new GameObject();
+            coordinateSpace.transform.position = transform.position + transform.forward;
+            coordinateSpace.transform.rotation = transform.rotation;
+            coordinateSpace.transform.localScale = transform.localScale;
 
-        GameObject playbackGhost = Instantiate(playbackPrefab) as GameObject;
-        playbackGhost.GetComponent<PlaybackBehavior>().coordinateSpace = coordinateSpace;
-        playbackGhost.transform.localScale = coordinateSpace.transform.localScale;
-        playbackGhost.transform.position = coordinateSpace.transform.position;
-        playbackGhost.transform.rotation = coordinateSpace.transform.rotation;
-        playbackGhost.transform.localRotation = Quaternion.identity;
-        playbackGhost.GetComponent<PlaybackBehavior>().StartPlayback(recorder.recordedFrames, PlaybackMode.RunOnce);
+            GameObject playbackGhost = Instantiate(playbackPrefab) as GameObject;
+            playbackGhost.GetComponent<PlaybackBehavior>().coordinateSpace = coordinateSpace;
+            playbackGhost.transform.localScale = coordinateSpace.transform.localScale;
+            playbackGhost.transform.position = coordinateSpace.transform.position;
+            playbackGhost.transform.rotation = coordinateSpace.transform.rotation;
+            playbackGhost.transform.localRotation = Quaternion.identity;
+            playbackGhost.GetComponent<PlaybackBehavior>().StartPlayback(recorder.recordedFrames, PlaybackMode.RunOnce);
+            
+            availablePlaybacks--;
+            hud.setPlaybackCounter(availablePlaybacks);
+        }
+        
     }
 
     public void resetPlaybackCounter()
