@@ -4,16 +4,20 @@ using System.Collections;
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(ActorBehaviour))]
 [RequireComponent(typeof(RecordBehavior))]
+[RequireComponent(typeof(PlayerHUD))]
 public class PlayerController : MonoBehaviour {
 
     public GameObject playbackPrefab;
+    public int maxPlaybacks = 2;
 
     [SerializeField]
     [Range(1, 2)]
     short playerId = 1;
+    int availablePlaybacks = 0;
 
     ActorBehaviour actor;
     RecordBehavior recorder;
+    PlayerHUD hud;
 
     Vector3 currentVelocity;
 
@@ -21,6 +25,7 @@ public class PlayerController : MonoBehaviour {
     {
         actor = GetComponent<ActorBehaviour>();
         recorder = GetComponent<RecordBehavior>();
+        hud = GetComponent<PlayerHUD>();
     }
 
     public void Update()
@@ -43,19 +48,19 @@ public class PlayerController : MonoBehaviour {
 
         if (Input.GetButtonDown("Record_P" + playerId))
         {
-            Debug.Log("start recording" + playerId);
+            //Debug.Log("start recording" + playerId);
             recorder.StartRecording();
         }
 
         if (Input.GetButtonUp("Record_P" + playerId))
         {
-            Debug.Log("stop recording " + playerId);
+            //Debug.Log("stop recording " + playerId);
             recorder.StopRecording();
         }
 
         if (Input.GetButtonDown("Playback_P" + playerId))
         {
-            Debug.Log("start playback" + playerId);
+            //Debug.Log("start playback" + playerId);
             InstantiatePlayback();
         }
 
@@ -64,17 +69,31 @@ public class PlayerController : MonoBehaviour {
 
     void InstantiatePlayback()
     {
-        GameObject coordinateSpace = new GameObject();
-        coordinateSpace.transform.position = transform.position + transform.forward;
-        coordinateSpace.transform.rotation = transform.rotation;
-        coordinateSpace.transform.localScale = transform.localScale;
+        if (availablePlaybacks > 0)
+        {
+            GameObject coordinateSpace = new GameObject();
+            coordinateSpace.transform.position = transform.position + transform.forward;
+            coordinateSpace.transform.rotation = transform.rotation;
+            coordinateSpace.transform.localScale = transform.localScale;
 
-        GameObject playbackGhost = Instantiate(playbackPrefab) as GameObject;
-        playbackGhost.GetComponent<PlaybackBehavior>().coordinateSpace = coordinateSpace;
-        playbackGhost.transform.localScale = coordinateSpace.transform.localScale;
-        playbackGhost.transform.position = coordinateSpace.transform.position;
-        playbackGhost.transform.rotation = coordinateSpace.transform.rotation;
-        playbackGhost.transform.localRotation = Quaternion.identity;
-        playbackGhost.GetComponent<PlaybackBehavior>().StartPlayback(recorder.recordedFrames, PlaybackMode.RunOnce);
+            GameObject playbackGhost = Instantiate(playbackPrefab) as GameObject;
+            playbackGhost.GetComponent<PlaybackBehavior>().coordinateSpace = coordinateSpace;
+            playbackGhost.transform.localScale = coordinateSpace.transform.localScale;
+            playbackGhost.transform.position = coordinateSpace.transform.position;
+            playbackGhost.transform.rotation = coordinateSpace.transform.rotation;
+            playbackGhost.transform.localRotation = Quaternion.identity;
+            playbackGhost.GetComponent<PlaybackBehavior>().StartPlayback(recorder.recordedFrames, PlaybackMode.RunOnce);
+            
+            availablePlaybacks--;
+            hud.setPlaybackCounter(availablePlaybacks);
+        }
+        
     }
+
+    public void resetPlaybackCounter()
+    {
+        availablePlaybacks = maxPlaybacks;
+        hud.setPlaybackCounter(availablePlaybacks);
+    }
+
 }

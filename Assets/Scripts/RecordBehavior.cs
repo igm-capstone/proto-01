@@ -12,6 +12,8 @@ public struct Frame
     // TO DO: Add member variable for recording button presses.
 }
 
+[RequireComponent(typeof(PlayerHUD))]
+[RequireComponent(typeof(PlayerController))]
 public class RecordBehavior : MonoBehaviour 
 {
     public Frame[] recordedFrames;
@@ -21,10 +23,14 @@ public class RecordBehavior : MonoBehaviour
     int maxRecordedFrames = 0;
     int frameCount = 0;
 
+    private PlayerHUD hud;
+    private PlayerController ctrl;
+
 	// Use this for initialization
-	void Start()
+	void Awake()
     {
-	    
+        hud = GetComponent<PlayerHUD>();
+        ctrl = GetComponent<PlayerController>();
 	}
 	
 	// Update is called once per frame
@@ -40,6 +46,7 @@ public class RecordBehavior : MonoBehaviour
             if (frameCount < maxRecordedFrames)
             {
                 recordedFrames[frameCount].mIndex = frameCount++;
+                hud.setSlider((float)frameCount / (float)maxRecordedFrames);
             }
             else
             {
@@ -57,12 +64,15 @@ public class RecordBehavior : MonoBehaviour
             recordedFrames = new Frame[maxRecordedFrames];
             isRecording = true;
         }
+        hud.startRec();
     }
 
     public void StopRecording () 
     {
         recordedFrames = recordedFrames.Take(frameCount - 1).ToArray();
         isRecording = false;
+        hud.stopRec();
+        ctrl.resetPlaybackCounter();
     }
 
     public void RecordFrameAction(float horizontal, float vertical, float offset)
