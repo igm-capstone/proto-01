@@ -10,6 +10,10 @@ public class PlayerController : MonoBehaviour {
     public GameObject playbackPrefab;
     public int maxPlaybacks = 2;
 
+    [SerializeField]
+    [Range(1f, 20f)]
+    public float speed = 5;
+
     public Vector3 PlyrStartPos;
 
     [SerializeField]
@@ -32,6 +36,7 @@ public class PlayerController : MonoBehaviour {
         // Record Player Start Position when the Scene Starts
         PlyrStartPos = GetComponent<Transform>().position;
 
+        actor.setSpeed(speed);
     }
 
     public void Update()
@@ -88,8 +93,9 @@ public class PlayerController : MonoBehaviour {
             playbackGhost.transform.position = coordinateSpace.transform.position;
             playbackGhost.transform.rotation = coordinateSpace.transform.rotation;
             playbackGhost.transform.localRotation = Quaternion.identity;
+            playbackGhost.GetComponent<ActorBehaviour>().setSpeed(speed);
             playbackGhost.GetComponent<PlaybackBehavior>().StartPlayback(recorder.recordedFrames, PlaybackMode.RunOnce);
-            
+
             availablePlaybacks--;
             hud.setPlaybackCounter(availablePlaybacks);
         }

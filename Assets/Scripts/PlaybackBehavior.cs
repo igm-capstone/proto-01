@@ -13,19 +13,29 @@ public class PlaybackBehavior : MonoBehaviour
 {
     public GameObject coordinateSpace;
     public Frame[] recordedFrames;
-    public Slider sliderHP;
     Renderer r;
     PlaybackMode mode;
     bool isPlaying = false;
     ActorBehaviour actor;
-    
+
     int frameCount = 0;
+
+    //For UI
+    Canvas screenCanvas;
+    public Slider healthPrefab;
+    public float healthPanelOffset = 0.35f;
+    private Slider healthSlider;
 
 	// Use this for initialization
 	void Awake()
     {
         actor = GetComponent<ActorBehaviour>();
         r = GetComponent<Renderer>();
+
+        screenCanvas = FindObjectOfType<Canvas>();
+
+        healthSlider = Instantiate(healthPrefab) as Slider;
+        healthSlider.transform.SetParent(screenCanvas.transform, false);
 	}
 	
 	// Update is called once per frame
@@ -57,10 +67,11 @@ public class PlaybackBehavior : MonoBehaviour
                     frameCount = 0;
             }
 
-            sliderHP.value = 1.0f - ((float)frameCount / (float)recordedFrames.Length);
-            var m_Camera = Camera.main;
-            sliderHP.transform.LookAt(transform.position + m_Camera.transform.rotation * Vector3.back, m_Camera.transform.rotation * Vector3.up);
-
+            Vector3 worldPos = new Vector3(transform.position.x, transform.position.y + healthPanelOffset, transform.position.z);
+            Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
+            healthSlider.transform.position = new Vector3(screenPos.x, screenPos.y, screenPos.z);
+            healthSlider.value = 1.0f - ((float)frameCount / (float)recordedFrames.Length);
+            
             Color current = r.materials[0].color;
             current.a = 1.0f - ((float)frameCount / (float)recordedFrames.Length);
             r.materials[0].color = current;
@@ -78,6 +89,7 @@ public class PlaybackBehavior : MonoBehaviour
     public void StopPlayback()
     {
         isPlaying = false;
+        Destroy(healthSlider.gameObject);
         Destroy(coordinateSpace);
         Destroy(gameObject);
     }
