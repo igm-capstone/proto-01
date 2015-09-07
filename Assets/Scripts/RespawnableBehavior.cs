@@ -18,6 +18,11 @@ public class RespawnableBehavior : MonoBehaviour {
         if (transform.position.y < -10.0)
         {
             transform.position = mRespawnPoint;
+			var rBody = GetComponent<Rigidbody>();
+			if (rBody) 
+			{
+				rBody.velocity = Vector3.zero;
+			}
         }
 	}
 }
