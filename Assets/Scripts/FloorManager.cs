@@ -13,55 +13,60 @@ public class FloorManager : MonoBehaviour
     private Color floorFlashColor;
     private Color origFlashColor;
     private Material floorBaseMaterial;
-    private bool trapBool = false;
-    private int switchNum;
+    private bool flashBool = false;
+    public bool timerBool = false;
+    private int switchNum = 0;
 
+    public float timer = 3.0f;
     void Start()
     {
         floorBaseMaterial = floors[1].GetChild(1).GetComponent<Renderer>().material;
+        floorFlashMaterial.color = floorBaseMaterial.color;
         origFlashColor = floorFlashMaterial.color;
+        foreach (Transform floor in floors)
+        {
+            floor.gameObject.SetActive(false);
+        }
     }
 
 
     void Update()
     {
-        if (trapBool)
+
+        if (timerBool == true)
+        {
+            if (timer >= 0)
+            {
+                timer = timer - Time.deltaTime;
+            }
+            else if (timer <= 0)
+            {
+                floors[switchNum].gameObject.SetActive(false);
+                gameObject.transform.FindChild("FloorBaseTop").gameObject.SetActive(true);
+                floorFlashMaterial.color = floorBaseMaterial.color;        
+
+                timerBool = false;
+                timer = 3.0f;
+            }
+        }
+
+        if (flashBool)
         {
             float t = (Mathf.PingPong(Time.time * 3, 1.0f));
             floorFlashMaterial.color = Color.Lerp(floorBaseMaterial.color, floorFlashColor, t);
         }
     }
 
-    IEnumerator activateFlash(float flashTime)
-    {        
-        //yield return new WaitForSeconds(flashTime);
-        foreach (Transform floor in floors[switchNum])
-        {
-            floor.gameObject.GetComponent<Renderer>().material = floorFlashMaterial;
-        }
-        trapBool = true;
-        
-        yield return new WaitForSeconds(flashTime);
-        trapBool = false;
-        floorFlashMaterial.color = floorBaseMaterial.color;
-        
-        StartCoroutine("activateTrap", flashTime);
-    }
+    IEnumerator activateTrap(float flashDuration)
+    {     
+        //turn on the respective floors
+        floors[switchNum].gameObject.SetActive(true);
+        flashBool = true;
 
-    IEnumerator activateTrap(float flashTime)
-    {
-        //turn off the respective floors
-        foreach(Transform floor in floors[switchNum])
-        {
-            floor.gameObject.SetActive(false);
-        }
-
-        //wait for some time
-        yield return new WaitForSeconds(flashTime);
-        foreach (Transform floor in floors[switchNum])
-        {
-            floor.gameObject.SetActive(true);
-        }
+        yield return new WaitForSeconds(flashDuration);
+        gameObject.transform.FindChild("FloorBaseTop").gameObject.SetActive(false);
+        flashBool = false;
+        timerBool = true;
     }
 
     public void trapControl(string switchName)
@@ -70,19 +75,19 @@ public class FloorManager : MonoBehaviour
         {
             case "Top":
                 switchNum = 0;
-                StartCoroutine("activateFlash", flashTime);
+                StartCoroutine(activateTrap(flashTime));
                 break;
             case "Left":
                 switchNum = 1;
-                StartCoroutine("activateFlash", flashTime);
+                StartCoroutine(activateTrap(flashTime));
                 break;
             case "Bottom":
                 switchNum = 2;
-                StartCoroutine("activateFlash", flashTime);
+                StartCoroutine(activateTrap(flashTime));
                 break;
             case "Right":
                 switchNum = 3;
-                StartCoroutine("activateFlash", flashTime);
+                StartCoroutine(activateTrap(flashTime));
                 break;
             default:
                 break;
