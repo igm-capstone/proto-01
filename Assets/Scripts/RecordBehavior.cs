@@ -18,7 +18,7 @@ public class RecordBehavior : MonoBehaviour
 {
     public Frame[] recordedFrames;
     public float duration = 0.0f;
-    private bool isRecording = false;
+    public bool isRecording { get; private set; }
 
     int maxRecordedFrames = 0;
     int frameCount = 0;
