@@ -233,6 +233,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 476030827}
   m_RootOrder: 0
+--- !u!1 &224244659 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 148010, guid: 2c2a7d7cd1d047a4aaa9cc48610f9cb3, type: 2}
+  m_PrefabInternal: {fileID: 1466517106}
+--- !u!114 &224244667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 224244659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75d8edb06f6c2994e9d3d9a39343b07f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &407186368
 GameObject:
   m_ObjectHideFlags: 0
@@ -348,6 +363,7 @@ GameObject:
   - 65: {fileID: 479400372}
   - 23: {fileID: 479400371}
   - 54: {fileID: 479400370}
+  - 114: {fileID: 479400374}
   m_Layer: 0
   m_Name: P1Pillar
   m_TagString: Platform
@@ -428,6 +444,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 479400368}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &479400374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 479400368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75d8edb06f6c2994e9d3d9a39343b07f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &557220421 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 135422, guid: 2b2c9164c6d994d4ca3ca06f588f76a1, type: 2}
@@ -747,11 +774,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22446232, guid: 2b2c9164c6d994d4ca3ca06f588f76a1, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22498018, guid: 2b2c9164c6d994d4ca3ca06f588f76a1, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2b2c9164c6d994d4ca3ca06f588f76a1, type: 2}
@@ -1003,6 +1030,7 @@ GameObject:
   - 65: {fileID: 1411940829}
   - 23: {fileID: 1411940828}
   - 54: {fileID: 1411940827}
+  - 114: {fileID: 1411940831}
   m_Layer: 0
   m_Name: P2Pillar
   m_TagString: Platform
@@ -1083,6 +1111,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1411940825}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1411940831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1411940825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75d8edb06f6c2994e9d3d9a39343b07f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1466517106
 Prefab:
   m_ObjectHideFlags: 0
