@@ -14,7 +14,7 @@ public class FloorManager : MonoBehaviour
     private Color origFlashColor;
     private Material floorBaseMaterial;
     private bool flashBool = false;
-    public bool timerBool = false;
+    private bool timerBool = false;
     private int switchNum = 0;
 
     public float timer = 3.0f;
@@ -68,6 +68,16 @@ public class FloorManager : MonoBehaviour
         flashBool = false;
         timerBool = true;
     }
+
+	public void spawnFloors()
+	{
+		floors[switchNum].gameObject.SetActive(false);
+		gameObject.transform.FindChild("FloorBaseTop").gameObject.SetActive(true);
+		floorFlashMaterial.color = floorBaseMaterial.color;        
+		
+		timerBool = false;
+		timer = 3.0f;
+	}
 
     public void trapControl(string switchName)
     {

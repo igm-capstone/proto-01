@@ -8,8 +8,10 @@ public class PlayerHUD : MonoBehaviour {
 
     private Slider slider;
     private Image playIcon;
-    private Image recIcon; 
-    private Text playCounter;
+	private Image recIcon; 
+	private Image heartIcon; 
+	private Text playCounter;
+	private Text livesCount;
 
     private int playCount = 0;
 
@@ -21,8 +23,10 @@ public class PlayerHUD : MonoBehaviour {
 
         slider = hudPrefab.GetComponentInChildren<Slider>();
         playIcon = hudPrefab.transform.FindChild("Play").GetComponent<Image>();
-        recIcon = hudPrefab.transform.FindChild("Record").GetComponent<Image>();
+		recIcon = hudPrefab.transform.FindChild("Record").GetComponent<Image>();
+		heartIcon = hudPrefab.transform.FindChild("Heart").GetComponent<Image>();
         playCounter = hudPrefab.transform.FindChild("PlayCount").GetComponent<Text>();
+		livesCount = hudPrefab.transform.FindChild("LivesCount").GetComponent<Text>();
 	}
 	
 	// Update is called once per frame
@@ -59,6 +63,21 @@ public class PlayerHUD : MonoBehaviour {
             setSlider(0);
         }
     }
+
+	public void setLives(int t)
+	{
+		if (t == -1) {
+			livesCount.text = "X";
+		} else
+			livesCount.text = t.ToString ();
+
+		if (t > 0 || t == -1)
+			heartIcon.color = Color.red;
+		else
+		{
+			heartIcon.color = Color.gray;
+		}
+	}
 
 
 }

@@ -61,6 +61,11 @@ public class PlayerController : MonoBehaviour {
         transform.position = GetComponent<RespawnableBehavior>().mRespawnPoint;
     }
 
+	void loseLives()
+	{
+		hud.setLives (gameObject.GetComponent<RespawnableBehavior> ().currentSpawn);
+	}
+
     private void ReadPlayerInput(out float horizontal, out float vertical, out bool jump)
     {
         horizontal = Input.GetAxis("Horizontal_P" + playerId);
