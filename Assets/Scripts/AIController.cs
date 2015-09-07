@@ -18,4 +18,9 @@ public class AIController : MonoBehaviour
     {
         //
     }
+
+    void Die()
+    {
+        GetComponent<PlaybackBehavior>().StopPlayback();
+    }
 }

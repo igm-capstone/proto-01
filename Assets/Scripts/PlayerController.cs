@@ -56,6 +56,11 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+    void Die()
+    {
+        transform.position = GetComponent<RespawnableBehavior>().mRespawnPoint;
+    }
+
     private void ReadPlayerInput(out float horizontal, out float vertical, out bool jump)
     {
         horizontal = Input.GetAxis("Horizontal_P" + playerId);

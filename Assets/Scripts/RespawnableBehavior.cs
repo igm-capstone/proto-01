@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class RespawnableBehavior : MonoBehaviour {
 
-    private Vector3 mRespawnPoint;
+    [NonSerialized]
+    public Vector3 mRespawnPoint;
 
 	// Use this for initialization
 	void Start () {
