@@ -8,6 +8,7 @@ public class RespawnableBehavior : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         mRespawnPoint = transform.position;
+        Debug.Log(this.name + ": " + mRespawnPoint.ToString());
 	}
 	
 	// Update is called once per frame
