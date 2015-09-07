@@ -83,7 +83,7 @@ public class PlayerController : MonoBehaviour {
             recorder.StopRecording();
         }
 
-        if (Input.GetButtonDown("Playback_P" + playerId))
+        if (Input.GetButtonDown("Playback_P" + playerId) && !recorder.isRecording)
         {
             //Debug.Log("start playback" + playerId);
             InstantiatePlayback();
