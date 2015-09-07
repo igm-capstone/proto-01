@@ -47,7 +47,7 @@ GameObject:
   - 114: {fileID: 11453016}
   - 114: {fileID: 11415126}
   - 135: {fileID: 13574636}
-  - 135: {fileID: 13594632}
+  - 114: {fileID: 11485920}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -244,6 +244,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8daa0cbab8a3a940ba16a94f8697d39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11485920
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 148010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75d8edb06f6c2994e9d3d9a39343b07f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11487046
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -257,6 +268,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playbackPrefab: {fileID: 128400, guid: 082b95e2849991644ae38470669a44b0, type: 2}
   maxPlaybacks: 2
+  speed: 5
+  jumpForce: 20
   PlyrStartPos: {x: 0, y: 0, z: 0}
   playerId: 1
 --- !u!114 &11497790
@@ -270,21 +283,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd1abac2c5c2f3408beaf382e121d76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  jumpForce: 20
 --- !u!135 &13574636
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 148010}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: .5
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!135 &13594632
 SphereCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
