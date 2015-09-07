@@ -19,16 +19,19 @@ public class ActorBehaviour : MonoBehaviour
 {
     float speed = 5;
 
+    [SerializeField]
+    float jumpForce = 20;
+
     public new Rigidbody rigidbody { get; private set; }
 
     Vector3 velocity;
+    
+    //impulse available for the current jump
     float jumpImpulse;
 
-    bool jump;
-
+    bool isJumping;
     bool isGrounded;
 
-    public float force = 20;
 
     void Awake()
     {
@@ -37,7 +40,7 @@ public class ActorBehaviour : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (jump)
+        if (isJumping)
         {
             rigidbody.AddForce(Vector3.up * (jumpImpulse * .2f), ForceMode.VelocityChange);
             jumpImpulse *= .8f;
@@ -45,17 +48,26 @@ public class ActorBehaviour : MonoBehaviour
 
         if (isGrounded)
         {
-            jumpImpulse = force;
+            jumpImpulse = jumpForce;
         }
 
         velocity.y = rigidbody.velocity.y;
         rigidbody.velocity = velocity;
     }
 
-    public void OnCollisionEnter(Collision collision)
+    public void OnCollisionStay(Collision collision)
     {
         if (collision.transform.tag == "Platform") {
-            isGrounded = true;
+
+            // is only grounded if touched the ground from the top (positive normal y component)
+            foreach (var contact in collision.contacts)
+            {
+                if (contact.normal.y > 0)
+                {
+                    isGrounded = true;
+                    break;
+                }
+            }
         }
 
     }
@@ -80,7 +92,7 @@ public class ActorBehaviour : MonoBehaviour
             velocity = Vector3.zero;
         }
 
-        this.jump = jump;
+        this.isJumping = jump;
     }
 
     public void setSpeed (float value) {
