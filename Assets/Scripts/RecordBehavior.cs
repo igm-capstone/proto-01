@@ -9,7 +9,7 @@ public struct Frame
     public float mHorizontal;
     public float mVertical;
     public float mOffset;
-    // TO DO: Add member variable for recording button presses.
+    public bool mJump;
 }
 
 [RequireComponent(typeof(PlayerHUD))]
@@ -75,11 +75,12 @@ public class RecordBehavior : MonoBehaviour
         ctrl.resetPlaybackCounter();
     }
 
-    public void RecordFrameAction(float horizontal, float vertical, float offset)
+    public void RecordFrameAction(float horizontal, float vertical, float offset, bool jump)
     {
        recordedFrames[frameCount].mHorizontal = horizontal;
        recordedFrames[frameCount].mVertical = vertical;
-       recordedFrames[frameCount].mOffset = offset; 
+       recordedFrames[frameCount].mOffset = offset;
+       recordedFrames[frameCount].mJump = jump;
        recordedFrames[frameCount].mEmpty = false;
     }
     
