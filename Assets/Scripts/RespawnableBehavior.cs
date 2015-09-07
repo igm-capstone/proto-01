@@ -32,8 +32,8 @@ public class RespawnableBehavior : MonoBehaviour {
 				FloorManager flrMan = floors.GetComponent<FloorManager>();
 				flrMan.spawnFloors();
 			}
-
-			currentSpawn--;
+			if(currentSpawn != -1)
+				currentSpawn--;
 			gameObject.SendMessage("loseLives");
             transform.position = mRespawnPoint;
 			var rBody = GetComponent<Rigidbody>();

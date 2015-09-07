@@ -830,6 +830,10 @@ Prefab:
       propertyPath: maxSpawns
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 11487046, guid: 2c2a7d7cd1d047a4aaa9cc48610f9cb3, type: 2}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
     - {fileID: 13594632, guid: 2c2a7d7cd1d047a4aaa9cc48610f9cb3, type: 2}
@@ -933,6 +937,10 @@ Prefab:
     - target: {fileID: 11485920, guid: 2c2a7d7cd1d047a4aaa9cc48610f9cb3, type: 2}
       propertyPath: maxSpawns
       value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11487046, guid: 2c2a7d7cd1d047a4aaa9cc48610f9cb3, type: 2}
+      propertyPath: speed
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 13594632, guid: 2c2a7d7cd1d047a4aaa9cc48610f9cb3, type: 2}
