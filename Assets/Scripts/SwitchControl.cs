@@ -7,7 +7,7 @@ public class SwitchControl : MonoBehaviour
 
     void Start()
     {
-        floorManObj = GameObject.Find("FloorBase").GetComponent<FloorManager>();
+        floorManObj = GameObject.Find("Floors").GetComponent<FloorManager>();
     }
 
     void OnCollisionEnter(Collision other)
