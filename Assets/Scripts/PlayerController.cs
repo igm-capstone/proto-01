@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour {
     public GameObject playbackPrefab;
     public int maxPlaybacks = 2;
 
+    public Vector3 PlyrStartPos;
+
     [SerializeField]
     [Range(1, 2)]
     short playerId = 1;
@@ -26,13 +28,18 @@ public class PlayerController : MonoBehaviour {
         actor = GetComponent<ActorBehaviour>();
         recorder = GetComponent<RecordBehavior>();
         hud = GetComponent<PlayerHUD>();
+
+        // Record Player Start Position when the Scene Starts
+        PlyrStartPos = GetComponent<Transform>().position;
+
     }
 
     public void Update()
     {
         float horizontal, vertical;
-        ReadPlayerInput(out horizontal, out vertical);
-        actor.PerformActions(horizontal, vertical);
+        bool jump;
+        ReadPlayerInput(out horizontal, out vertical, out jump);
+        actor.PerformActions(horizontal, vertical, jump);
 
         if (recorder.IsRecording())
         {
@@ -40,28 +47,30 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    private void ReadPlayerInput(out float horizontal, out float vertical)
+    private void ReadPlayerInput(out float horizontal, out float vertical, out bool jump)
     {
         horizontal = Input.GetAxis("Horizontal_P" + playerId);
         vertical = Input.GetAxis("Vertical_P" + playerId);
 
-        if (Input.GetButtonDown("A" + playerId))
+        if (Input.GetButtonDown("Record_P" + playerId))
         {
             //Debug.Log("start recording" + playerId);
             recorder.StartRecording();
         }
 
-        if (Input.GetButtonUp("A" + playerId))
+        if (Input.GetButtonUp("Record_P" + playerId))
         {
             //Debug.Log("stop recording " + playerId);
             recorder.StopRecording();
         }
 
-        if (Input.GetButtonDown("X" + playerId))
+        if (Input.GetButtonDown("Playback_P" + playerId))
         {
             //Debug.Log("start playback" + playerId);
             InstantiatePlayback();
         }
+
+        jump = Input.GetButton("Jump_P" + playerId);
     }
 
     void InstantiatePlayback()
