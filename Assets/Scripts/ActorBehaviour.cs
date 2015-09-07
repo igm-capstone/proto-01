@@ -17,8 +17,6 @@ public enum Actions
 
 public class ActorBehaviour : MonoBehaviour
 {
-    [SerializeField]
-    [Range(1f, 20f)]
     float speed = 5;
 
     public new Rigidbody rigidbody { get; private set; }
@@ -83,5 +81,9 @@ public class ActorBehaviour : MonoBehaviour
         }
 
         this.jump = jump;
+    }
+
+    public void setSpeed (float value) {
+        speed = value;
     }
 }
