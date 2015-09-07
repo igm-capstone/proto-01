@@ -24,12 +24,13 @@ public class ActorBehaviour : MonoBehaviour
     public new Rigidbody rigidbody { get; private set; }
 
     Vector3 velocity;
-    float jumpImpulse = 80;
+    float jumpImpulse;
 
     bool jump;
 
     bool isGrounded;
 
+    public float force = 20;
 
     void Awake()
     {
@@ -38,13 +39,18 @@ public class ActorBehaviour : MonoBehaviour
 
     private void FixedUpdate()
     {
-        velocity.y = rigidbody.velocity.y;
         if (jump)
         {
-            velocity.y += jumpImpulse * .2f;
-            jumpImpulse = .8f;
+            rigidbody.AddForce(Vector3.up * (jumpImpulse * .2f), ForceMode.VelocityChange);
+            jumpImpulse *= .8f;
         }
 
+        if (isGrounded)
+        {
+            jumpImpulse = force;
+        }
+
+        velocity.y = rigidbody.velocity.y;
         rigidbody.velocity = velocity;
     }
 
@@ -58,7 +64,10 @@ public class ActorBehaviour : MonoBehaviour
 
     public void OnCollisionExit(Collision collision)
     {
-
+        if (collision.transform.tag == "Platform")
+        {
+            isGrounded = false;
+        }
     }
 
     public void PerformActions(float horizontal, float vertical, bool jump = false)
