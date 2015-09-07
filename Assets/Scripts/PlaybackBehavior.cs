@@ -11,6 +11,7 @@ public enum PlaybackMode {
 [RequireComponent(typeof(ActorBehaviour))]
 public class PlaybackBehavior : MonoBehaviour 
 {
+    public GameObject coordinateSpace;
     public Frame[] recordedFrames;
     public Slider sliderHP;
     Renderer r;
@@ -39,7 +40,13 @@ public class PlaybackBehavior : MonoBehaviour
         {
             if (frameCount < recordedFrames.Length)
             {
-                actor.PerformActions(recordedFrames[frameCount].action);
+                Vector3 v = new Vector3(recordedFrames[frameCount].mHorizontal, 0.0f, recordedFrames[frameCount].mVertical);
+                float spaceAngle = Mathf.Atan2(coordinateSpace.transform.forward.x, coordinateSpace.transform.forward.z);
+                float recordAngle = recordedFrames[0].mOffset;
+                float a = spaceAngle - recordAngle;
+                Vector3 t = Quaternion.AngleAxis(a * Mathf.Rad2Deg, Vector3.up) * v;
+                actor.PerformActions(t.x, t.z);
+
                 frameCount++;
             }
             else
@@ -51,7 +58,9 @@ public class PlaybackBehavior : MonoBehaviour
             }
 
             sliderHP.value = 1.0f - ((float)frameCount / (float)recordedFrames.Length);
-            
+            var m_Camera = Camera.main;
+            sliderHP.transform.LookAt(transform.position + m_Camera.transform.rotation * Vector3.back, m_Camera.transform.rotation * Vector3.up);
+
             Color current = r.materials[0].color;
             current.a = 1.0f - ((float)frameCount / (float)recordedFrames.Length);
             r.materials[0].color = current;
@@ -69,6 +78,7 @@ public class PlaybackBehavior : MonoBehaviour
     public void StopPlayback()
     {
         isPlaying = false;
+        Destroy(coordinateSpace);
         Destroy(gameObject);
     }
 

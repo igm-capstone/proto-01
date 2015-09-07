@@ -4,16 +4,22 @@ using System.Collections;
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(ActorBehaviour))]
 [RequireComponent(typeof(RecordBehavior))]
+[RequireComponent(typeof(PlayerHUD))]
 public class PlayerController : MonoBehaviour {
 
     public GameObject playbackPrefab;
+    public int maxPlaybacks = 2;
+
+    public Vector3 PlyrStartPos;
 
     [SerializeField]
     [Range(1, 2)]
     short playerId = 1;
+    int availablePlaybacks = 0;
 
     ActorBehaviour actor;
     RecordBehavior recorder;
+    PlayerHUD hud;
 
     Vector3 currentVelocity;
 
@@ -21,111 +27,79 @@ public class PlayerController : MonoBehaviour {
     {
         actor = GetComponent<ActorBehaviour>();
         recorder = GetComponent<RecordBehavior>();
+        hud = GetComponent<PlayerHUD>();
+
+        // Record Player Start Position when the Scene Starts
+        PlyrStartPos = GetComponent<Transform>().position;
+
     }
 
     public void Update()
     {
-        var newVelocity = ReadPlayerInput();
-        var actions = Actions.None;
+        float horizontal, vertical;
+        bool jump;
+        ReadPlayerInput(out horizontal, out vertical, out jump);
+        actor.PerformActions(horizontal, vertical, jump);
 
-        var newKeyFrame = WriteVelocityActions(newVelocity, out actions);
-    
-        if (newKeyFrame)
+        if (recorder.IsRecording())
         {
-            currentVelocity = newVelocity;
-
-            actor.PerformActions(actions);
-            recorder.RecordFrameAction(actions);
+            recorder.RecordFrameAction(horizontal, vertical, Mathf.Atan2(transform.forward.x, transform.forward.z));
         }
     }
 
-    private bool WriteVelocityActions(Vector3 velocity, out Actions actions, bool force = false)
+    private void ReadPlayerInput(out float horizontal, out float vertical, out bool jump)
     {
-        var newKeyFrame = false;
+        horizontal = Input.GetAxis("Horizontal_P" + playerId);
+        vertical = Input.GetAxis("Vertical_P" + playerId);
 
-        actions = Actions.None;
-        if (force || (velocity.x != currentVelocity.x))
+        if (Input.GetButtonDown("Record_P" + playerId))
         {
-            if (velocity.x == 0)
-            {
-                actions |= Actions.StopHorizontal;
-            }
-            else if (velocity.x == 1)
-            {
-                actions |= Actions.MoveRight;
-            }
-            else
-            {
-                actions |= Actions.MoveLeft;
-            }
-
-            newKeyFrame = true;
-        }
-
-        if (force || (velocity.z != currentVelocity.z))
-        {
-            if (velocity.z == 0)
-            {
-                actions |= Actions.StopVertical;
-            }
-            else if (velocity.z == 1)
-            {
-                actions |= Actions.MoveUp;
-            }
-            else
-            {
-                actions |= Actions.MoveDown;
-            }
-
-            newKeyFrame = true;
-        }
-
-        return newKeyFrame;
-    }
-
-    private Vector3 ReadPlayerInput()
-    {
-
-        // horizontal controls X axis while vertical controls Z axis
-        var horizontal = Input.GetAxis("Horizontal_P" + playerId);
-        var vertical = Input.GetAxis("Vertical_P" + playerId);
-
-        var hasHorizontal = Mathf.Abs(horizontal) > 0.1f;
-        var hasVertical = Mathf.Abs(vertical) > 0.1f;
-
-        var velocity = Vector3.zero;
-
-        velocity.x = hasHorizontal ? horizontal > 0 ? 1 : -1 : 0;
-        velocity.z = hasVertical ? vertical > 0 ? 1 : -1 : 0;
-
-        Debug.Log("process input");
-        if (Input.GetButtonDown("A" + playerId))
-        {
-            Debug.Log("start recording" + playerId);
+            //Debug.Log("start recording" + playerId);
             recorder.StartRecording();
-            var actions = Actions.None;
-            WriteVelocityActions(currentVelocity, out actions, true);
-            recorder.RecordFrameAction(actions);
         }
 
-        if (Input.GetButtonUp("A" + playerId))
+        if (Input.GetButtonUp("Record_P" + playerId))
         {
-            Debug.Log("stop recording " + playerId);
+            //Debug.Log("stop recording " + playerId);
             recorder.StopRecording();
         }
 
-        if (Input.GetButtonDown("X" + playerId))
+        if (Input.GetButtonDown("Playback_P" + playerId))
         {
-            Debug.Log("start playback" + playerId);
+            //Debug.Log("start playback" + playerId);
             InstantiatePlayback();
         }
 
-        return velocity;
+        jump = Input.GetButton("Jump_P" + playerId);
     }
 
     void InstantiatePlayback()
     {
-        GameObject playbackGhost = Instantiate(playbackPrefab, transform.position + (currentVelocity == Vector3.zero ? Vector3.forward : currentVelocity), Quaternion.identity) as GameObject;
-        playbackGhost.GetComponent<PlaybackBehavior>().StartPlayback(recorder.recordedFrames, PlaybackMode.RunOnce);
+        if (availablePlaybacks > 0)
+        {
+            GameObject coordinateSpace = new GameObject();
+            coordinateSpace.transform.position = transform.position + transform.forward;
+            coordinateSpace.transform.rotation = transform.rotation;
+            coordinateSpace.transform.localScale = transform.localScale;
+
+            GameObject playbackGhost = Instantiate(playbackPrefab) as GameObject;
+            playbackGhost.GetComponent<PlaybackBehavior>().coordinateSpace = coordinateSpace;
+            playbackGhost.transform.localScale = coordinateSpace.transform.localScale;
+            playbackGhost.transform.position = coordinateSpace.transform.position;
+            playbackGhost.transform.rotation = coordinateSpace.transform.rotation;
+            playbackGhost.transform.localRotation = Quaternion.identity;
+            playbackGhost.GetComponent<PlaybackBehavior>().StartPlayback(recorder.recordedFrames, PlaybackMode.RunOnce);
+            
+            availablePlaybacks--;
+            hud.setPlaybackCounter(availablePlaybacks);
+        }
+        
     }
+
+    public void resetPlaybackCounter()
+    {
+        availablePlaybacks = maxPlaybacks;
+        hud.setPlaybackCounter(availablePlaybacks);
+    }
+
 }

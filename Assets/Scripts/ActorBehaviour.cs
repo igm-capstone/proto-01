@@ -24,6 +24,13 @@ public class ActorBehaviour : MonoBehaviour
     public new Rigidbody rigidbody { get; private set; }
 
     Vector3 velocity;
+    float jumpImpulse;
+
+    bool jump;
+
+    bool isGrounded;
+
+    public float force = 20;
 
     void Awake()
     {
@@ -32,42 +39,49 @@ public class ActorBehaviour : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (jump)
+        {
+            rigidbody.AddForce(Vector3.up * (jumpImpulse * .2f), ForceMode.VelocityChange);
+            jumpImpulse *= .8f;
+        }
+
+        if (isGrounded)
+        {
+            jumpImpulse = force;
+        }
+
         velocity.y = rigidbody.velocity.y;
         rigidbody.velocity = velocity;
     }
 
-    public void PerformActions(Actions actions)
+    public void OnCollisionEnter(Collision collision)
     {
-        velocity = rigidbody.velocity;
-
-        if ((actions & Actions.MoveRight) != 0)
-        {
-            velocity.x = speed;
+        if (collision.transform.tag == "Platform") {
+            isGrounded = true;
         }
 
-        if ((actions & Actions.MoveLeft) != 0)
+    }
+
+    public void OnCollisionExit(Collision collision)
+    {
+        if (collision.transform.tag == "Platform")
         {
-            velocity.x = -speed;
+            isGrounded = false;
+        }
+    }
+
+    public void PerformActions(float horizontal, float vertical, bool jump = false)
+    {
+        if (Mathf.Abs(horizontal) > Mathf.Epsilon || Mathf.Abs(vertical) > Mathf.Epsilon)
+        {
+            transform.localRotation = Quaternion.Euler(0.0f, Mathf.Atan2(horizontal, vertical) * Mathf.Rad2Deg, 0.0f);
+            velocity = transform.forward * speed;
+        }
+        else
+        {
+            velocity = Vector3.zero;
         }
 
-        if ((actions & Actions.StopHorizontal) != 0)
-        {
-            velocity.x = 0;
-        }
-
-        if ((actions & Actions.MoveUp) != 0)
-        {
-            velocity.z = speed;
-        }
-
-        if ((actions & Actions.MoveDown) != 0)
-        {
-            velocity.z = -speed;
-        }
-
-        if ((actions & Actions.StopVertical) != 0)
-        {
-            velocity.z = 0;
-        }
+        this.jump = jump;
     }
 }
