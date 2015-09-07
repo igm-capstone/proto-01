@@ -9,7 +9,12 @@ public class DeathHitSender : MonoBehaviour
         if ((other.gameObject.layer == LayerMask.NameToLayer("Player")) 
             || (other.gameObject.layer == LayerMask.NameToLayer("Ghost")))
         {
-            other.transform.parent.SendMessage("Die");
+            if (other.transform.parent == null)
+            {
+                return;
+            }
+
+            other.transform.parent.SendMessage("Die", SendMessageOptions.DontRequireReceiver);
         }
     }
 }

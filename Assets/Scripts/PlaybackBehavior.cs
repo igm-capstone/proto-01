@@ -30,7 +30,7 @@ public class PlaybackBehavior : MonoBehaviour
 	void Awake()
     {
         actor = GetComponent<ActorBehaviour>();
-        r = GetComponent<Renderer>();
+        r = GetComponentInChildren<Renderer>();
 
         screenCanvas = FindObjectOfType<Canvas>();
 
