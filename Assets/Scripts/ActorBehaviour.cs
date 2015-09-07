@@ -27,7 +27,7 @@ public class ActorBehaviour : MonoBehaviour
     public new Rigidbody rigidbody { get; private set; }
 
     Vector3 velocity;
-    
+
     //impulse available for the current jump
     float jumpImpulse;
 
@@ -59,7 +59,8 @@ public class ActorBehaviour : MonoBehaviour
 
     public void OnCollisionStay(Collision collision)
     {
-        if (collision.transform.tag == "Platform") {
+        if (collision.transform.tag == "Platform")
+        {
 
             // is only grounded if touched the ground from the top (positive normal y component)
             foreach (var contact in collision.contacts)
