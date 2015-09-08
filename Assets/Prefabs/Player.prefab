@@ -18,7 +18,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &121968
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
@@ -27,7 +27,7 @@ GameObject:
   - 33: {fileID: 3366238}
   - 23: {fileID: 2398776}
   m_Layer: 10
-  m_Name: Model (3)
+  m_Name: Nose
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -92,7 +92,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &169794
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
@@ -101,7 +101,7 @@ GameObject:
   - 33: {fileID: 3321108}
   - 23: {fileID: 2309714}
   m_Layer: 10
-  m_Name: Model (2)
+  m_Name: Left Eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -109,7 +109,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &193538
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
@@ -118,7 +118,7 @@ GameObject:
   - 33: {fileID: 3332694}
   - 23: {fileID: 2341546}
   m_Layer: 10
-  m_Name: Model (1)
+  m_Name: Right eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -131,11 +131,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 193538}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .266000003, y: .245000005, z: .5}
+  m_LocalPosition: {x: .26599884, y: .245000005, z: .5}
   m_LocalScale: {x: .321134001, y: .150067553, z: .180099562}
   m_Children: []
-  m_Father: {fileID: 416674}
-  m_RootOrder: 3
+  m_Father: {fileID: 414002}
+  m_RootOrder: 0
 --- !u!4 &414002
 Transform:
   m_ObjectHideFlags: 1
@@ -145,7 +145,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 410838}
+  - {fileID: 426030}
+  - {fileID: 456198}
   m_Father: {fileID: 416674}
   m_RootOrder: 0
 --- !u!4 &416674
@@ -155,15 +158,12 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 148010}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -90.6935196, y: 141.163269, z: 3.55999994}
+  m_LocalPosition: {x: -42, y: .000999987125, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 414002}
   - {fileID: 475104}
   - {fileID: 485382}
-  - {fileID: 410838}
-  - {fileID: 426030}
-  - {fileID: 456198}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &426030
@@ -173,11 +173,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 169794}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.266000003, y: .245000005, z: .5}
+  m_LocalPosition: {x: -.26599884, y: .245000005, z: .5}
   m_LocalScale: {x: .321134001, y: .150067553, z: .180099562}
   m_Children: []
-  m_Father: {fileID: 416674}
-  m_RootOrder: 4
+  m_Father: {fileID: 414002}
+  m_RootOrder: 1
 --- !u!4 &456198
 Transform:
   m_ObjectHideFlags: 1
@@ -185,11 +185,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 121968}
   m_LocalRotation: {x: 0, y: 0, z: -.707107008, w: .70710665}
-  m_LocalPosition: {x: -.00200000009, y: -.0670000017, z: .5}
+  m_LocalPosition: {x: -.00199890137, y: -.0670000017, z: .5}
   m_LocalScale: {x: .321134001, y: .093792215, z: .180099562}
   m_Children: []
-  m_Father: {fileID: 416674}
-  m_RootOrder: 5
+  m_Father: {fileID: 414002}
+  m_RootOrder: 2
 --- !u!4 &475104
 Transform:
   m_ObjectHideFlags: 1
@@ -224,7 +224,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 5b9e97918c91151479502e0c7dd771e3, type: 2}
+  - {fileID: 2100000, guid: 3fbd9a10cdd7e874fb6d1daf99100996, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -438,7 +438,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75d8edb06f6c2994e9d3d9a39343b07f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpawns: 3
+  maxSpawns: -1
   currentSpawn: 0
 --- !u!114 &11487046
 MonoBehaviour:
@@ -453,10 +453,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playbackPrefab: {fileID: 128400, guid: 082b95e2849991644ae38470669a44b0, type: 2}
   maxPlaybacks: 2
-  speed: 10
+  speed: 5
   jumpForce: 20
   PlyrStartPos: {x: 0, y: 0, z: 0}
-  playerId: 2
+  playerId: 1
 --- !u!114 &11497790
 MonoBehaviour:
   m_ObjectHideFlags: 1

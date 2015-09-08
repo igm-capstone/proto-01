@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour {
 
     [SerializeField]
     [Range(1, 2)]
-    short playerId = 1;
+    public short playerId = 1;
     int availablePlaybacks = 0;
 
     ActorBehaviour actor;

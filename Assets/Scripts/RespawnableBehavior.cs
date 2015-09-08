@@ -15,7 +15,7 @@ public class RespawnableBehavior : MonoBehaviour {
 		currentSpawn = maxSpawns;
         mRespawnPoint = transform.position;
 		gameObject.SendMessage("loseLives");
-        Debug.Log(this.name + ": " + mRespawnPoint.ToString());
+//        Debug.Log(this.name + ": " + mRespawnPoint.ToString());
 	}
 	
 	// Update is called once per frame
