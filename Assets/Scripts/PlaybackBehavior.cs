@@ -25,6 +25,7 @@ public class PlaybackBehavior : MonoBehaviour
     public Slider healthPrefab;
     public float healthPanelOffset = 0.35f;
     private Slider healthSlider;
+    private GameObject startPosition;
 
 	// Use this for initialization
 	void Awake()
@@ -36,12 +37,6 @@ public class PlaybackBehavior : MonoBehaviour
 
         healthSlider = Instantiate(healthPrefab) as Slider;
         healthSlider.transform.SetParent(screenCanvas.transform, false);
-	}
-	
-	// Update is called once per frame
-	void Update() 
-    {
-	    
 	}
 
     void FixedUpdate()
@@ -62,42 +57,47 @@ public class PlaybackBehavior : MonoBehaviour
             else
             {
                 if (mode == PlaybackMode.RunOnce)
-                    StopPlayback();
+                    //StopPlayback();
+                    Debug.Log("abc");
                 else if (mode == PlaybackMode.Loop)
-                    frameCount = 0;
+                    StartPlayback(recordedFrames, PlaybackMode.Loop, startPosition);
             }
 
             Vector3 worldPos = new Vector3(transform.position.x, transform.position.y + healthPanelOffset, transform.position.z);
             Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
             healthSlider.transform.position = new Vector3(screenPos.x, screenPos.y, screenPos.z);
             healthSlider.value = 1.0f - ((float)frameCount / (float)recordedFrames.Length);
-            
-            Color current = r.materials[0].color;
-            current.a = 1.0f - ((float)frameCount / (float)recordedFrames.Length);
-            r.materials[0].color = current;
+
+            //Color current = r.materials[0].color;
+            //current.a = 1.0f - ((float)frameCount / (float)recordedFrames.Length);
+            //r.materials[0].color = current;
 
         }
     }
 
-    public void StartPlayback (Frame[] recordedFrames, PlaybackMode mode) 
+    public void StartPlayback (Frame[] recordedFrames, PlaybackMode mode, GameObject startPos) 
     {
+        frameCount = 0;
+        startPosition = startPos;
+        transform.localScale = startPos.transform.localScale;
+        transform.position = startPos.transform.position;
+        transform.rotation = startPos.transform.rotation;
+        transform.localRotation = Quaternion.identity;
         this.recordedFrames = recordedFrames;
         this.mode = mode;
         this.isPlaying = true;
     }
 
-    public void StopPlayback()
-    {
-        isPlaying = false;
-        Destroy(healthSlider.gameObject);
-        Destroy(coordinateSpace);
-        Destroy(gameObject);
-    }
+    //public void StopPlayback()
+    //{
+    //    isPlaying = false;
+    //    Destroy(healthSlider.gameObject);
+    //    Destroy(coordinateSpace);
+    //    Destroy(gameObject);
+    //}
 
-    public void PausePlayback()
-    {
-        isPlaying = false;
-    }
-
-
+    //public void PausePlayback()
+    //{
+    //    isPlaying = false;
+    //}
 }

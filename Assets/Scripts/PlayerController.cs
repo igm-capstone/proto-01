@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour {
     RecordBehavior recorder;
     PlayerHUD hud;
 
-    Vector3 currentVelocity;
+    Vector3 currentVelocity, spawnPos, spawnScale, spawnRot;
 
     public void Awake()
     {
@@ -41,8 +41,15 @@ public class PlayerController : MonoBehaviour {
 
         actor.setSpeed(speed);
         actor.setJumpForce(jumpForce);
+        //spawnPos = transform.position;
+        //spawnScale = transform.localScale;
+        //spawnRot = transform.rotation.eulerAngles;
     }
 
+    void Start()
+    {
+        recorder.StartRecording();
+    }
     public void Update()
     {
         float horizontal, vertical;
@@ -56,10 +63,7 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    void Die()
-    {
-        transform.position = GetComponent<RespawnableBehavior>().mRespawnPoint;
-    }
+   
 
 	void loseLives()
 	{
@@ -71,36 +75,32 @@ public class PlayerController : MonoBehaviour {
         horizontal = Input.GetAxis("Horizontal_P" + playerId);
         vertical = Input.GetAxis("Vertical_P" + playerId);
 
-        if (Input.GetButtonDown("Record_P" + playerId))
+        if (Input.GetKeyDown(KeyCode.G))
         {
-            //Debug.Log("start recording" + playerId);
             recorder.StartRecording();
-        }
-
-        if (Input.GetButtonUp("Record_P" + playerId))
-        {
-            //Debug.Log("stop recording " + playerId);
-            recorder.StopRecording();
-        }
-
-        if (Input.GetButtonDown("Playback_P" + playerId) && !recorder.isRecording)
-        {
-            //Debug.Log("start playback" + playerId);
-            InstantiatePlayback();
         }
 
         jump = Input.GetButton("Jump_P" + playerId);
     }
-
-    void InstantiatePlayback()
+    
+    /*
+    public void ResetTransform(Transform t)
+    {
+        spawnPos = t.position;
+        spawnScale = t.localScale;
+        spawnRot = t.rotation.eulerAngles;
+    }
+    public void InstantiatePlayback()
     {
         if (availablePlaybacks > 0)
         {
             GameObject coordinateSpace = new GameObject();
-            coordinateSpace.transform.position = transform.position + transform.forward;
-            coordinateSpace.transform.rotation = transform.rotation;
-            coordinateSpace.transform.localScale = transform.localScale;
+            coordinateSpace.transform.position = spawnPos;
+            coordinateSpace.transform.eulerAngles = spawnRot;
+            coordinateSpace.transform.localScale = spawnScale;
 
+
+            //Set the transform to spawn position of the player
             GameObject playbackGhost = Instantiate(playbackPrefab) as GameObject;
             playbackGhost.GetComponent<PlaybackBehavior>().coordinateSpace = coordinateSpace;
             playbackGhost.transform.localScale = coordinateSpace.transform.localScale;
@@ -116,11 +116,11 @@ public class PlayerController : MonoBehaviour {
         }
         
     }
+    */
 
     public void resetPlaybackCounter()
     {
         availablePlaybacks = maxPlaybacks;
         hud.setPlaybackCounter(availablePlaybacks);
     }
-
 }

@@ -548,7 +548,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: b544816461f324e56a39767fdeb5b114, type: 2}
       propertyPath: m_LocalScale.x
-      value: 4.63170862
+      value: 1.64605916
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: b544816461f324e56a39767fdeb5b114, type: 2}
       propertyPath: m_LocalScale.y
@@ -2321,6 +2321,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1205586530}
   m_RootOrder: 2
+--- !u!1 &973961599
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 973961600}
+  m_Layer: 0
+  m_Name: SpawnPoint1
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &973961600
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 973961599}
+  m_LocalRotation: {x: 0, y: .707106829, z: 0, w: .707106709}
+  m_LocalPosition: {x: -5.8499999, y: 1.12, z: 3.07999992}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
 --- !u!1 &979707757
 GameObject:
   m_ObjectHideFlags: 0
@@ -3209,6 +3236,10 @@ Prefab:
       propertyPath: speed
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 148010, guid: 2c2a7d7cd1d047a4aaa9cc48610f9cb3, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2c2a7d7cd1d047a4aaa9cc48610f9cb3, type: 2}
   m_IsPrefabParent: 0
@@ -3757,6 +3788,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31cfce8fffebe624f8882fd14e9ad6f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1442997039
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1442997040}
+  m_Layer: 0
+  m_Name: SpawnPoint3
+  m_TagString: Untagged
+  m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1442997040
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1442997039}
+  m_LocalRotation: {x: 0, y: 2.68220901e-07, z: 0, w: 1}
+  m_LocalPosition: {x: -2.41000009, y: 1.12, z: -9.71000004}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
 --- !u!1 &1452994876
 GameObject:
   m_ObjectHideFlags: 0
@@ -3839,6 +3897,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11485920, guid: 2c2a7d7cd1d047a4aaa9cc48610f9cb3, type: 2}
+      propertyPath: mRespawnPoint.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 416674, guid: 2c2a7d7cd1d047a4aaa9cc48610f9cb3, type: 2}
       propertyPath: m_LocalPosition.x
       value: -5.8499999
@@ -3889,11 +3951,31 @@ Prefab:
       objectReference: {fileID: 2100000, guid: 3fbd9a10cdd7e874fb6d1daf99100996, type: 2}
     - target: {fileID: 11485920, guid: 2c2a7d7cd1d047a4aaa9cc48610f9cb3, type: 2}
       propertyPath: maxSpawns
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 11487046, guid: 2c2a7d7cd1d047a4aaa9cc48610f9cb3, type: 2}
       propertyPath: speed
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 11485920, guid: 2c2a7d7cd1d047a4aaa9cc48610f9cb3, type: 2}
+      propertyPath: mRespawnPoint.Array.data[0]
+      value: 
+      objectReference: {fileID: 973961600}
+    - target: {fileID: 11485920, guid: 2c2a7d7cd1d047a4aaa9cc48610f9cb3, type: 2}
+      propertyPath: mRespawnPoint.Array.data[1]
+      value: 
+      objectReference: {fileID: 1501468171}
+    - target: {fileID: 11485920, guid: 2c2a7d7cd1d047a4aaa9cc48610f9cb3, type: 2}
+      propertyPath: mRespawnPoint.Array.data[2]
+      value: 
+      objectReference: {fileID: 1442997040}
+    - target: {fileID: 11485920, guid: 2c2a7d7cd1d047a4aaa9cc48610f9cb3, type: 2}
+      propertyPath: playbackPrefab
+      value: 
+      objectReference: {fileID: 128400, guid: 082b95e2849991644ae38470669a44b0, type: 2}
+    - target: {fileID: 11487046, guid: 2c2a7d7cd1d047a4aaa9cc48610f9cb3, type: 2}
+      propertyPath: maxPlaybacks
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2c2a7d7cd1d047a4aaa9cc48610f9cb3, type: 2}
@@ -4048,6 +4130,33 @@ MeshCollider:
   serializedVersion: 2
   m_Convex: 0
   m_Mesh: {fileID: 4300080, guid: a9fa584e4a78c6740bd2b9cbe9b7f9f8, type: 3}
+--- !u!1 &1501468170
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1501468171}
+  m_Layer: 0
+  m_Name: SpawnPoint2
+  m_TagString: Untagged
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1501468171
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1501468170}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: -3.42726707e-07}
+  m_LocalPosition: {x: 9.31999969, y: 1.12, z: 7.32000017}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
 --- !u!1 &1509964757
 GameObject:
   m_ObjectHideFlags: 0
@@ -5229,11 +5338,11 @@ Prefab:
       objectReference: {fileID: 1595954221}
     - target: {fileID: 22429472, guid: 2b2c9164c6d994d4ca3ca06f588f76a1, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22405910, guid: 2b2c9164c6d994d4ca3ca06f588f76a1, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11496482, guid: 2b2c9164c6d994d4ca3ca06f588f76a1, type: 2}
       propertyPath: m_Text
@@ -5291,7 +5400,16 @@ Prefab:
       propertyPath: m_AnchorMax.x
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 11484586, guid: 2b2c9164c6d994d4ca3ca06f588f76a1, type: 2}
+      propertyPath: hudPrefab
+      value: 
+      objectReference: {fileID: 188390, guid: c0a5579ca50885c42902577540d85b4e, type: 2}
+    - target: {fileID: 11440326, guid: 2b2c9164c6d994d4ca3ca06f588f76a1, type: 2}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 11426962, guid: 2b2c9164c6d994d4ca3ca06f588f76a1, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 2b2c9164c6d994d4ca3ca06f588f76a1, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1992307688

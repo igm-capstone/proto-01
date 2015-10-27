@@ -17,8 +17,8 @@ public enum Actions
 
 public class ActorBehaviour : MonoBehaviour
 {
-    float speed = 5;
-    float jumpForce = 20;
+    public float speed = 5;
+    public float jumpForce = 20;
 
     public new Rigidbody rigidbody { get; private set; }
 
