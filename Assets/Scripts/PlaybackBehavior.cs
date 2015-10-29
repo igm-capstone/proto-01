@@ -27,7 +27,6 @@ public class PlaybackBehavior : MonoBehaviour
     private Slider healthSlider;
     private GameObject startPosition;
 
-	// Use this for initialization
 	void Awake()
     {
         actor = GetComponent<ActorBehaviour>();

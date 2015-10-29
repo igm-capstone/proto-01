@@ -41,9 +41,6 @@ public class PlayerController : MonoBehaviour {
 
         actor.setSpeed(speed);
         actor.setJumpForce(jumpForce);
-        //spawnPos = transform.position;
-        //spawnScale = transform.localScale;
-        //spawnRot = transform.rotation.eulerAngles;
     }
 
     void Start()
@@ -62,7 +59,6 @@ public class PlayerController : MonoBehaviour {
             recorder.RecordFrameAction(horizontal, vertical, Mathf.Atan2(transform.forward.x, transform.forward.z), jump);
         }
     }
-
    
 
 	void loseLives()
@@ -81,42 +77,7 @@ public class PlayerController : MonoBehaviour {
         }
 
         jump = Input.GetButton("Jump_P" + playerId);
-    }
-    
-    /*
-    public void ResetTransform(Transform t)
-    {
-        spawnPos = t.position;
-        spawnScale = t.localScale;
-        spawnRot = t.rotation.eulerAngles;
-    }
-    public void InstantiatePlayback()
-    {
-        if (availablePlaybacks > 0)
-        {
-            GameObject coordinateSpace = new GameObject();
-            coordinateSpace.transform.position = spawnPos;
-            coordinateSpace.transform.eulerAngles = spawnRot;
-            coordinateSpace.transform.localScale = spawnScale;
-
-
-            //Set the transform to spawn position of the player
-            GameObject playbackGhost = Instantiate(playbackPrefab) as GameObject;
-            playbackGhost.GetComponent<PlaybackBehavior>().coordinateSpace = coordinateSpace;
-            playbackGhost.transform.localScale = coordinateSpace.transform.localScale;
-            playbackGhost.transform.position = coordinateSpace.transform.position;
-            playbackGhost.transform.rotation = coordinateSpace.transform.rotation;
-            playbackGhost.transform.localRotation = Quaternion.identity;
-            playbackGhost.GetComponent<ActorBehaviour>().setSpeed(speed);
-            playbackGhost.GetComponent<ActorBehaviour>().setJumpForce(jumpForce);
-            playbackGhost.GetComponent<PlaybackBehavior>().StartPlayback(recorder.recordedFrames, PlaybackMode.RunOnce);
-
-            availablePlaybacks--;
-            hud.setPlaybackCounter(availablePlaybacks);
-        }
-        
-    }
-    */
+    }    
 
     public void resetPlaybackCounter()
     {
