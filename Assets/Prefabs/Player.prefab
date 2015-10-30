@@ -11,7 +11,7 @@ GameObject:
   - 65: {fileID: 6511670}
   m_Layer: 10
   m_Name: UpperCollider
-  m_TagString: Untagged
+  m_TagString: BluePlayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -158,7 +158,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 148010}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -42, y: .000999987125, z: 0}
+  m_LocalPosition: {x: -5.8499999, y: 1.12, z: 3.07999992}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 414002}
@@ -438,8 +438,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75d8edb06f6c2994e9d3d9a39343b07f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpawns: -1
+  mRespawnPoint:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  playerPrefab: {fileID: 0}
+  maxSpawns: 10
   currentSpawn: 0
+  playbackPrefab: {fileID: 128400, guid: 082b95e2849991644ae38470669a44b0, type: 2}
+  temp: 0
 --- !u!114 &11487046
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -452,8 +459,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playbackPrefab: {fileID: 128400, guid: 082b95e2849991644ae38470669a44b0, type: 2}
-  maxPlaybacks: 2
-  speed: 5
+  maxPlaybacks: 5
+  speed: 10
   jumpForce: 20
   PlyrStartPos: {x: 0, y: 0, z: 0}
   playerId: 1
@@ -468,6 +475,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd1abac2c5c2f3408beaf382e121d76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 5
+  jumpForce: 20
 --- !u!135 &13574636
 SphereCollider:
   m_ObjectHideFlags: 1

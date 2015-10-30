@@ -74,6 +74,7 @@ public class RespawnableBehavior : MonoBehaviour {
             rBody.velocity = Vector3.zero;
         }
         ResetTransform(mRespawnPoint[rand]);
+        recorder.StartRecording();
     }
     public void ResetTransform(Transform t)
     {

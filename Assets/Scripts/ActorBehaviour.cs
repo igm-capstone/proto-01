@@ -30,6 +30,8 @@ public class ActorBehaviour : MonoBehaviour
     bool isJumping;
     bool isGrounded;
 
+    public bool justTeleported = false;
+
 
     void Awake()
     {

@@ -74,7 +74,7 @@ public class RecordBehavior : MonoBehaviour
         hud.stopRec();
         ctrl.resetPlaybackCounter();
     }
-
+    //whats the offset?
     public void RecordFrameAction(float horizontal, float vertical, float offset, bool jump)
     {
        recordedFrames[frameCount].mHorizontal = horizontal;

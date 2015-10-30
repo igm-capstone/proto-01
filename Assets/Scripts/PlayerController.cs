@@ -71,10 +71,10 @@ public class PlayerController : MonoBehaviour {
         horizontal = Input.GetAxis("Horizontal_P" + playerId);
         vertical = Input.GetAxis("Vertical_P" + playerId);
 
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            recorder.StartRecording();
-        }
+        //if (Input.GetKeyDown(KeyCode.G))
+        //{
+        //    recorder.StartRecording();
+        //}
 
         jump = Input.GetButton("Jump_P" + playerId);
     }    
