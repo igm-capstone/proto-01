@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Linq;
 
-
 public struct FPSFrame
 {
     public int mIndex;
@@ -13,10 +12,9 @@ public struct FPSFrame
     public bool mJump;
 }
 
-
 [RequireComponent(typeof(PlayerHUD))]
 [RequireComponent(typeof(PlayerController))]
-public class RecordBehavior : MonoBehaviour 
+public class FPSRecordBehavior : MonoBehaviour 
 {
     public FPSFrame[] recordedFrames;
     public float duration = 0.0f;

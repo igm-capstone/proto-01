@@ -12,7 +12,7 @@ public enum PlaybackMode {
 public class PlaybackBehavior : MonoBehaviour 
 {
     public GameObject coordinateSpace;
-    public Frame[] recordedFrames;
+    public FPSFrame[] recordedFrames;
     Renderer r;
     PlaybackMode mode;
     bool isPlaying = false;
@@ -74,7 +74,7 @@ public class PlaybackBehavior : MonoBehaviour
         }
     }
 
-    public void StartPlayback (Frame[] recordedFrames, PlaybackMode mode, GameObject startPos) 
+    public void StartPlayback (FPSFrame[] recordedFrames, PlaybackMode mode, GameObject startPos) 
     {
         frameCount = 0;
         startPosition = startPos;
