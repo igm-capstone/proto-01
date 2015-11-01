@@ -20,6 +20,12 @@ public class ActorBehaviour : MonoBehaviour
     public float speed = 5;
     public float jumpForce = 20;
 
+    bool isFPSEnabled;
+    Camera PlayerCamera;
+    public float FPSSensitivity = 3f;
+    private float currentCameraRotationX = 0f;
+    private float cameraRotationLimit = 85f;
+
     public new Rigidbody rigidbody { get; private set; }
 
     Vector3 velocity;
@@ -36,6 +42,7 @@ public class ActorBehaviour : MonoBehaviour
     void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
+        PlayerCamera = GetComponentInChildren<Camera>();
     }
 
     private void FixedUpdate()
@@ -53,6 +60,9 @@ public class ActorBehaviour : MonoBehaviour
 
         velocity.y = rigidbody.velocity.y;
         rigidbody.velocity = velocity;
+
+
+        UpdateFPSCamera();
     }
 
     public void OnCollisionStay(Collision collision)
@@ -83,16 +93,25 @@ public class ActorBehaviour : MonoBehaviour
 
     public void PerformActions(float horizontal, float vertical, bool jump = false)
     {
+        // Test for input
         if (Mathf.Abs(horizontal) > Mathf.Epsilon || Mathf.Abs(vertical) > Mathf.Epsilon)
         {
-            transform.localRotation = Quaternion.Euler(0.0f, Mathf.Atan2(horizontal, vertical) * Mathf.Rad2Deg, 0.0f);
-            velocity = transform.forward * speed;
+            //Test for kind of controls
+            if (isFPSEnabled)
+            {// FPS controls
+                velocity = transform.forward * vertical * speed + transform.right * horizontal * speed;
+                // Techicaly this makes dioganal movement be faster.
+            }
+            else
+            {
+                transform.localRotation = Quaternion.Euler(0.0f, Mathf.Atan2(horizontal, vertical) * Mathf.Rad2Deg, 0.0f);
+                velocity = transform.forward * speed;
+            }
         }
         else
-        {
+        { // No input means we must stop
             velocity = Vector3.zero;
         }
-
         this.isJumping = jump;
     }
 
@@ -104,5 +123,31 @@ public class ActorBehaviour : MonoBehaviour
     public void setJumpForce(float value)
     {
         jumpForce = value;
+    }
+    public void SetFpsControls(bool value)
+    {
+        isFPSEnabled = value;
+    }
+
+    public void UpdateFPSCamera()
+    {
+        //Calculate rotation as a 3D vector (turning around)
+        float yRot = Input.GetAxisRaw("RightAnalogX_P1");
+        Vector3 rotation = new Vector3(0f, yRot, 0f) * FPSSensitivity;
+
+        //Calculate camera rotation as a 3D vector (turning around)
+        float xRot = Input.GetAxisRaw("RightAnalogY_P1");
+        float cameraRotationX = xRot * FPSSensitivity;
+
+        rigidbody.MoveRotation(rigidbody.rotation * Quaternion.Euler(rotation));
+        if (PlayerCamera != null)
+        {
+            // Set our rotation and clamp it
+            currentCameraRotationX += cameraRotationX;
+            currentCameraRotationX = Mathf.Clamp(currentCameraRotationX, -cameraRotationLimit, cameraRotationLimit);
+
+            //Apply our rotation to the transform of our camera
+            PlayerCamera.transform.localEulerAngles = new Vector3(currentCameraRotationX, 0f, 0f);
+        }
     }
 }

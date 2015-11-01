@@ -5,10 +5,12 @@ using System.Collections;
 [RequireComponent(typeof(ActorBehaviour))]
 [RequireComponent(typeof(RecordBehavior))]
 [RequireComponent(typeof(PlayerHUD))]
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour
+{
 
     public GameObject playbackPrefab;
     public int maxPlaybacks = 2;
+    public bool isFPSEnabled;
 
     [SerializeField]
     [Range(1f, 20f)]
@@ -41,6 +43,8 @@ public class PlayerController : MonoBehaviour {
 
         actor.setSpeed(speed);
         actor.setJumpForce(jumpForce);
+        actor.SetFpsControls(isFPSEnabled);
+
     }
 
     void Start()
@@ -59,12 +63,12 @@ public class PlayerController : MonoBehaviour {
             recorder.RecordFrameAction(horizontal, vertical, Mathf.Atan2(transform.forward.x, transform.forward.z), jump);
         }
     }
-   
 
-	void loseLives()
-	{
-		hud.setLives (gameObject.GetComponent<RespawnableBehavior> ().currentSpawn);
-	}
+
+    void loseLives()
+    {
+        hud.setLives(gameObject.GetComponent<RespawnableBehavior>().currentSpawn);
+    }
 
     private void ReadPlayerInput(out float horizontal, out float vertical, out bool jump)
     {
@@ -77,7 +81,7 @@ public class PlayerController : MonoBehaviour {
         //}
 
         jump = Input.GetButton("Jump_P" + playerId);
-    }    
+    }
 
     public void resetPlaybackCounter()
     {
