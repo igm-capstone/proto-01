@@ -9,6 +9,7 @@ TagManager:
   - RedPlayer
   - BluePlayer
   - BlueGhost
+  - Bullet
   layers:
   - Default
   - TransparentFX

@@ -52,8 +52,13 @@ public class PlayerController : MonoBehaviour
     {
         float horizontal, vertical;
         bool jump;
-        ReadPlayerInput(out horizontal, out vertical, out jump);
-        actor.PerformActions(horizontal, vertical, jump);
+
+        //FPS Controls
+        bool fireWeapon;
+        float camHorizontal, camVertical; 
+
+        ReadPlayerInput(out horizontal, out vertical, out jump, out camHorizontal, out camVertical, out fireWeapon);
+        actor.PerformActions(horizontal, vertical, camHorizontal, camVertical, jump, fireWeapon);
 
         if (recorder.IsRecording())
         {
@@ -61,10 +66,19 @@ public class PlayerController : MonoBehaviour
         }
     }    
 
-    private void ReadPlayerInput(out float horizontal, out float vertical, out bool jump)
+    private void ReadPlayerInput(out float horizontal, out float vertical, out bool jump, out float camHorizontal, out float camVertical, out bool fireWeapon)
     {
         horizontal = Input.GetAxis("Horizontal_P" + playerId);
         vertical = Input.GetAxis("Vertical_P" + playerId);
         jump = Input.GetButton("Jump_P" + playerId);
+
+        // FPS controls Input
+        camHorizontal = Input.GetAxis("CamHorizontal_P" + playerId);
+        camVertical = Input.GetAxis("CamVertical_P" + playerId);
+
+        if (Mathf.Abs(Input.GetAxis("Fire_P" + playerId)) > float.Epsilon)
+            fireWeapon = true;
+        else
+            fireWeapon = false;
     }
 }
