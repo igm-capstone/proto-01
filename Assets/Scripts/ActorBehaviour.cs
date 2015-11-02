@@ -30,11 +30,12 @@ public class ActorBehaviour : MonoBehaviour
 
     bool isJumping;
     bool isGrounded;
-
+    
+    [NonSerialized]
     public bool justTeleported = false;
 
     // FPS Variable
-    bool isFPSEnabled;
+    public bool isFPSEnabled;
     Camera PlayerCamera;
     public float FPSSensitivity = 3f;
     private float currentCameraRotationX = 0f;
@@ -100,10 +101,9 @@ public class ActorBehaviour : MonoBehaviour
         if (Mathf.Abs(horizontal) > Mathf.Epsilon || Mathf.Abs(vertical) > Mathf.Epsilon)
         {
             //Test for kind of controls
-            if (isFPSEnabled && this.gameObject.tag != "Ghost")
+            if (isFPSEnabled)
             {// FPS controls
-                velocity = transform.forward * vertical * speed + transform.right * horizontal * speed;
-                // Techicaly this makes dioganal movement be faster.
+                velocity = transform.forward * vertical * speed + transform.right * horizontal * speed;                
             }
             else
             {
@@ -118,10 +118,10 @@ public class ActorBehaviour : MonoBehaviour
 
         this.isJumping = jump;
 
-        if (isFPSEnabled && PlayerCamera != null && this.tag != "Ghost")
+        if (isFPSEnabled && PlayerCamera!= null)
         {
             UpdateFPSCamera(camHorizontal, camVertical);
-        }
+        }      
 
         if (fireWeapon)
         {
@@ -152,6 +152,8 @@ public class ActorBehaviour : MonoBehaviour
         float cameraRotationX = camVertical * FPSSensitivity;
 
         rigidbody.MoveRotation(rigidbody.rotation * Quaternion.Euler(rotation));
+        if (this.gameObject.tag == "Ghost")
+            Debug.Log(rigidbody.rotation.eulerAngles);
         if (PlayerCamera != null)
         {
             // Set our rotation and clamp it
