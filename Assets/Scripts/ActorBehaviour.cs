@@ -20,11 +20,6 @@ public class ActorBehaviour : MonoBehaviour
     public float speed = 5;
     public float jumpForce = 20;
 
-    bool isFPSEnabled;
-    Camera PlayerCamera;
-    public float FPSSensitivity = 3f;
-    private float currentCameraRotationX = 0f;
-    private float cameraRotationLimit = 85f;
 
     public new Rigidbody rigidbody { get; private set; }
 
@@ -38,10 +33,23 @@ public class ActorBehaviour : MonoBehaviour
 
     public bool justTeleported = false;
 
+    // FPS Variable
+    bool isFPSEnabled;
+    Camera PlayerCamera;
+    public float FPSSensitivity = 3f;
+    private float currentCameraRotationX = 0f;
+    private float cameraRotationLimit = 85f;
+
+    public GameObject BulletPrefab;
+    float BulletSpeed = 20.0f;
+    public Transform WeaponFirePoint;
+    float FireRate = 10.0f;
 
     void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
+
+        //FPS Objects
         PlayerCamera = GetComponentInChildren<Camera>();
     }
 
@@ -60,9 +68,6 @@ public class ActorBehaviour : MonoBehaviour
 
         velocity.y = rigidbody.velocity.y;
         rigidbody.velocity = velocity;
-
-
-        UpdateFPSCamera();
     }
 
     public void OnCollisionStay(Collision collision)
@@ -80,7 +85,6 @@ public class ActorBehaviour : MonoBehaviour
                 }
             }
         }
-
     }
 
     public void OnCollisionExit(Collision collision)
@@ -91,7 +95,7 @@ public class ActorBehaviour : MonoBehaviour
         }
     }
 
-    public void PerformActions(float horizontal, float vertical, bool jump = false)
+    public void PerformActions(float horizontal, float vertical, float camHorizontal, float camVertical, bool jump = false,  bool fireWeapon = false)
     {
         // Test for input
         if (Mathf.Abs(horizontal) > Mathf.Epsilon || Mathf.Abs(vertical) > Mathf.Epsilon)
@@ -112,7 +116,19 @@ public class ActorBehaviour : MonoBehaviour
         { // No input means we must stop
             velocity = Vector3.zero;
         }
+
         this.isJumping = jump;
+
+        if (isFPSEnabled && PlayerCamera != null)
+        {
+            UpdateFPSCamera(camHorizontal, camVertical);
+        }
+
+        if (fireWeapon)
+        {
+            ShootWeapon();
+        }
+
     }
 
     public void setSpeed(float value)
@@ -129,15 +145,13 @@ public class ActorBehaviour : MonoBehaviour
         isFPSEnabled = value;
     }
 
-    public void UpdateFPSCamera()
+    public void UpdateFPSCamera( float camHorizontal, float camVertical)
     {
         //Calculate rotation as a 3D vector (turning around)
-        float yRot = Input.GetAxisRaw("RightAnalogX_P1");
-        Vector3 rotation = new Vector3(0f, yRot, 0f) * FPSSensitivity;
+        Vector3 rotation = new Vector3(0f, camHorizontal, 0f) * FPSSensitivity;
 
         //Calculate camera rotation as a 3D vector (turning around)
-        float xRot = Input.GetAxisRaw("RightAnalogY_P1");
-        float cameraRotationX = xRot * FPSSensitivity;
+        float cameraRotationX = camVertical * FPSSensitivity;
 
         rigidbody.MoveRotation(rigidbody.rotation * Quaternion.Euler(rotation));
         if (PlayerCamera != null)
@@ -149,5 +163,12 @@ public class ActorBehaviour : MonoBehaviour
             //Apply our rotation to the transform of our camera
             PlayerCamera.transform.localEulerAngles = new Vector3(currentCameraRotationX, 0f, 0f);
         }
+    }
+    public void ShootWeapon()
+    {
+        GameObject Projectile = (GameObject)Instantiate(BulletPrefab, WeaponFirePoint.position, Quaternion.identity);
+
+        // Fires projectile.
+        Projectile.GetComponent<Rigidbody>().velocity = WeaponFirePoint.forward * BulletSpeed;
     }
 }

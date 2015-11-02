@@ -55,6 +55,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &151098
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 460390}
+  m_Layer: 10
+  m_Name: FirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &152190
 GameObject:
   m_ObjectHideFlags: 1
@@ -137,7 +152,7 @@ GameObject:
   - 124: {fileID: 12434424}
   - 81: {fileID: 8173286}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -170,7 +185,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: .382683456, w: .923879504}
   m_LocalPosition: {x: .38499999, y: -.208000019, z: .441000015}
   m_LocalScale: {x: .099999994, y: .099999994, z: .5}
-  m_Children: []
+  m_Children:
+  - {fileID: 460390}
   m_Father: {fileID: 470384}
   m_RootOrder: 0
 --- !u!4 &413212
@@ -240,6 +256,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 414654}
   m_RootOrder: 1
+--- !u!4 &460390
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 151098}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: .5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 404502}
+  m_RootOrder: 0
 --- !u!4 &466040
 Transform:
   m_ObjectHideFlags: 1
@@ -345,7 +373,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 07c5f75ea7d03624f997ac40222a497c, type: 2}
+  - {fileID: 2100000, guid: 8e6d4eeb017be41419cf9891f87c896c, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -613,7 +641,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 145224}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 11581e530e6dd2244b731fc0a7ba7df8, type: 3}
   m_Name: 
@@ -632,8 +660,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   jumpForce: 20
-  FPSSensitivity: 3
   justTeleported: 0
+  FPSSensitivity: 3
+  BulletPrefab: {fileID: 105970, guid: ae166d5ea4262034dbb8f8a36a2b1678, type: 2}
+  WeaponFirePoint: {fileID: 0}
 --- !u!124 &12434424
 Behaviour:
   m_ObjectHideFlags: 1
