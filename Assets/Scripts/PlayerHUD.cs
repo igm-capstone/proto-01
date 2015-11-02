@@ -18,8 +18,8 @@ public class PlayerHUD : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
-        Text label = hudPrefab.transform.FindChild("PlayerLabel").GetComponent<Text>();
-        label.text = gameObject.name;
+        //Text label = hudPrefab.transform.FindChild("PlayerLabel").GetComponent<Text>();
+        //label.text = gameObject.name;
 
         healthSlider = hudPrefab.GetComponentInChildren<Slider>();
         

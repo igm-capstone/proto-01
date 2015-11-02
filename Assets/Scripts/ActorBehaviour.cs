@@ -13,6 +13,8 @@ public enum Actions
     MoveUp = (1 << 3),
     MoveDown = (1 << 4),
     StopVertical = (1 << 5),
+
+	Shoot = (1<<6),
 }
 
 public class ActorBehaviour : MonoBehaviour
@@ -118,7 +120,7 @@ public class ActorBehaviour : MonoBehaviour
 
         this.isJumping = jump;
 
-        if (isFPSEnabled && PlayerCamera != null)
+        if (isFPSEnabled && PlayerCamera != null && this.tag != "Ghost")
         {
             UpdateFPSCamera(camHorizontal, camVertical);
         }

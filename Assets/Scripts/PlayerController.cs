@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour
 
         if (recorder.IsRecording())
         {
-            recorder.RecordFrameAction(horizontal, vertical, Mathf.Atan2(transform.forward.x, transform.forward.z), jump);
+            recorder.RecordFrameAction(horizontal, vertical, Mathf.Atan2(transform.forward.x, transform.forward.z), jump, fireWeapon);
         }
     }    
 
