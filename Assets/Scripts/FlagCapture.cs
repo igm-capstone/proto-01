@@ -13,9 +13,11 @@ public class FlagCapture : MonoBehaviour
     private Transform myBase;
     private Vector3 myFlagStartPos;
     public string myColor;
+    private PlayerHUD playerHUD;
     
     void Awake()
     {
+        playerHUD = GameObject.Find("Canvas").GetComponent<PlayerHUD>();
         myFlagState = FlagState.atBase;
         if (otherPlayer.ToString() == "RedPlayer")
         {
@@ -35,11 +37,11 @@ public class FlagCapture : MonoBehaviour
 
     void Update()
     {
+        //TODO: Change this to when the player or recording who has the flag, dies; cahnge state to dropped;
         if(Input.GetKeyDown(KeyCode.F))
         {
             transform.parent = otherFlag.GetComponent<FlagCapture>().myBase;
             transform.position += new Vector3(2, 0, 2);
-            //otherFlag.transform.position = otherFlag.GetComponent<FlagCapture>().myFlagStartPos;
             myFlagState = FlagState.dropped;
         }
     }
@@ -81,6 +83,10 @@ public class FlagCapture : MonoBehaviour
                     otherFlag.transform.position = otherFlag.GetComponent<FlagCapture>().myFlagStartPos;
                     //    //TODO
                     //    //add 1 point to this color player
+                    if (myColor == "Blue")
+                        playerHUD.SetP1Score(1);
+                    else if (myColor == "Red")
+                        playerHUD.SetP2Score(1);
                     otherFlag.GetComponent<FlagCapture>().myFlagState = FlagState.atBase;
                 }
             }
