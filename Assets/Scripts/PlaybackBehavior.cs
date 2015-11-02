@@ -45,9 +45,10 @@ public class PlaybackBehavior : MonoBehaviour
             if (frameCount < recordedFrames.Length)
             {
                 Vector3 v = new Vector3(recordedFrames[frameCount].mHorizontal, 0.0f, recordedFrames[frameCount].mVertical);
-                /*float spaceAngle = Mathf.Atan2(coordinateSpace.transform.forward.x, coordinateSpace.transform.forward.z);
+                
+                float spaceAngle = Mathf.Atan2(coordinateSpace.transform.forward.x, coordinateSpace.transform.forward.z);
                 float recordAngle = recordedFrames[0].mOffset;
-                float a = spaceAngle - recordAngle;*/
+                float a = spaceAngle - recordAngle;
                 //Vector3 t = Quaternion.AngleAxis(a * Mathf.Rad2Deg, Vector3.up) * v;
                 actor.PerformActions(v.x, v.z, 0, 0, recordedFrames[frameCount].mJump,recordedFrames[frameCount].mShoot);
 
@@ -77,8 +78,8 @@ public class PlaybackBehavior : MonoBehaviour
         startPosition = startPos;
         transform.localScale = startPos.transform.localScale;
         transform.position = startPos.transform.position;
-        transform.rotation = startPos.transform.rotation;
-        transform.localRotation = Quaternion.identity;
+        transform.eulerAngles = startPos.transform.eulerAngles;
+        //transform.localRotation = Quaternion.identity;
         this.recordedFrames = recordedFrames;
         this.mode = mode;
         this.isPlaying = true;

@@ -10,6 +10,7 @@ TagManager:
   - BluePlayer
   - BlueGhost
   - Bullet
+  - Platform
   layers:
   - Default
   - TransparentFX
@@ -25,8 +26,8 @@ TagManager:
   - GhostPlatform
   - InvisibleWall
   - Pillar
-  - 
-  - 
+  - Bullet
+  - Platform
   - 
   - 
   - 

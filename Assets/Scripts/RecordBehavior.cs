@@ -74,8 +74,8 @@ public class RecordBehavior : MonoBehaviour
        recordedFrames[frameCount].mVertical = vertical;
        recordedFrames[frameCount].mOffset = offset;
        recordedFrames[frameCount].mJump = jump;
-       recordedFrames[frameCount].mShoot = shoot;
        recordedFrames[frameCount].mEmpty = false;
+       recordedFrames[frameCount].mShoot = shoot;
     }
     
     public bool IsRecording()

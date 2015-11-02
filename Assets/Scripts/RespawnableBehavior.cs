@@ -19,9 +19,14 @@ public class RespawnableBehavior : MonoBehaviour {
 		recordingSpawnCount = maxRecordingSpawns;
 
         //change the spawn point to where the player spawns in the start of the game
-        spawnPos = transform.position;
-        spawnScale = transform.localScale;
-        spawnRot = transform.rotation.eulerAngles;
+        spawnPos = mRespawnPoint[0].transform.position;
+        spawnScale = mRespawnPoint[0].transform.localScale;
+        spawnRot = mRespawnPoint[0].transform.rotation.eulerAngles;
+
+        gameObject.transform.position = spawnPos;
+        gameObject.transform.localScale = spawnScale;
+        gameObject.transform.eulerAngles = spawnRot;
+        recorder.StartRecording();
 	}
 	
 	void Update () 

@@ -21,8 +21,15 @@ public class BulletBehavior : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    public void OnCollisionEnter(Collision collision)
+    //public void OnCollisionEnter(Collision collision)
+    //{
+    //    //if (collision.gameObject.tag == "Ghost" || collision.gameObject.tag == "BluePlayer" || collision.gameObject.tag == "RedPlayer" || collision.gameObject.tag == "Platform")
+    //    Destroy(this.gameObject);
+    //}
+
+    public void OnTriggerEnter(Collider other)
     {
-        Destroy(this.gameObject);
+        if (other.tag == "Ghost" || other.tag == "BluePlayer" || other.tag == "RedPlayer" || other.tag == "Platform")
+            Destroy(this.gameObject);
     }
 }

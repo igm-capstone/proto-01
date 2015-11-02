@@ -13,8 +13,6 @@ public enum Actions
     MoveUp = (1 << 3),
     MoveDown = (1 << 4),
     StopVertical = (1 << 5),
-
-	Shoot = (1<<6),
 }
 
 public class ActorBehaviour : MonoBehaviour
@@ -43,7 +41,7 @@ public class ActorBehaviour : MonoBehaviour
     private float cameraRotationLimit = 85f;
 
     public GameObject BulletPrefab;
-    float BulletSpeed = 20.0f;
+    public float BulletSpeed = 20.0f;
     public Transform WeaponFirePoint;
 
     void Awake()
@@ -102,7 +100,7 @@ public class ActorBehaviour : MonoBehaviour
         if (Mathf.Abs(horizontal) > Mathf.Epsilon || Mathf.Abs(vertical) > Mathf.Epsilon)
         {
             //Test for kind of controls
-            if (isFPSEnabled)
+            if (isFPSEnabled && this.gameObject.tag != "Ghost")
             {// FPS controls
                 velocity = transform.forward * vertical * speed + transform.right * horizontal * speed;
                 // Techicaly this makes dioganal movement be faster.

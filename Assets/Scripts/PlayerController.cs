@@ -44,10 +44,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    void Start()
-    {
-        recorder.StartRecording();
-    }
+    
     public void Update()
     {
         float horizontal, vertical;
