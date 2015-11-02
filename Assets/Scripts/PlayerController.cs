@@ -4,7 +4,6 @@ using System.Collections;
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(ActorBehaviour))]
 [RequireComponent(typeof(RecordBehavior))]
-[RequireComponent(typeof(PlayerHUD))]
 public class PlayerController : MonoBehaviour
 {
 
@@ -28,7 +27,6 @@ public class PlayerController : MonoBehaviour
 
     ActorBehaviour actor;
     RecordBehavior recorder;
-    PlayerHUD hud;
 
     Vector3 currentVelocity, spawnPos, spawnScale, spawnRot;
 
@@ -36,7 +34,6 @@ public class PlayerController : MonoBehaviour
     {
         actor = GetComponent<ActorBehaviour>();
         recorder = GetComponent<RecordBehavior>();
-        hud = GetComponent<PlayerHUD>();
 
         // Record Player Start Position when the Scene Starts
         PlyrStartPos = GetComponent<Transform>().position;
@@ -62,30 +59,12 @@ public class PlayerController : MonoBehaviour
         {
             recorder.RecordFrameAction(horizontal, vertical, Mathf.Atan2(transform.forward.x, transform.forward.z), jump);
         }
-    }
-
-
-    void loseLives()
-    {
-        hud.setLives(gameObject.GetComponent<RespawnableBehavior>().currentSpawn);
-    }
+    }    
 
     private void ReadPlayerInput(out float horizontal, out float vertical, out bool jump)
     {
         horizontal = Input.GetAxis("Horizontal_P" + playerId);
         vertical = Input.GetAxis("Vertical_P" + playerId);
-
-        //if (Input.GetKeyDown(KeyCode.G))
-        //{
-        //    recorder.StartRecording();
-        //}
-
         jump = Input.GetButton("Jump_P" + playerId);
-    }
-
-    public void resetPlaybackCounter()
-    {
-        availablePlaybacks = maxPlaybacks;
-        hud.setPlaybackCounter(availablePlaybacks);
     }
 }

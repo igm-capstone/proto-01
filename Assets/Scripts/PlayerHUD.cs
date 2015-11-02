@@ -7,12 +7,10 @@ public class PlayerHUD : MonoBehaviour
 
     public GameObject hudPrefab;
 
-    private Slider slider;
-    private Image playIcon;
-    private Image recIcon;
-    private Image heartIcon;
-    private Text playCounter;
-    private Text livesCount;
+    private Slider healthSlider;
+    private Text recordingCountText, P1Score, P2Score, Timer;   
+    private int recordingsCount, p1ScoreCount, p2ScoreCount;
+    public float TimerInMins = 5;
 
     private int playCount = 0;
 
@@ -23,66 +21,47 @@ public class PlayerHUD : MonoBehaviour
         Text label = hudPrefab.transform.FindChild("PlayerLabel").GetComponent<Text>();
         label.text = gameObject.name;
 
-        slider = hudPrefab.GetComponentInChildren<Slider>();
-        playIcon = hudPrefab.transform.FindChild("Play").GetComponent<Image>();
-        recIcon = hudPrefab.transform.FindChild("Record").GetComponent<Image>();
-        heartIcon = hudPrefab.transform.FindChild("Heart").GetComponent<Image>();
-        playCounter = hudPrefab.transform.FindChild("PlayCount").GetComponent<Text>();
-        livesCount = hudPrefab.transform.FindChild("LivesCount").GetComponent<Text>();
-    }
+        healthSlider = hudPrefab.GetComponentInChildren<Slider>();
+        
+        recordingCountText = hudPrefab.transform.FindChild("RecordingCount").GetComponent<Text>();
+        recordingsCount = 0;
+        recordingCountText.text = "Recordings: " + recordingsCount.ToString();
 
-    // Update is called once per frame
-    void Update()
-    {
+        P1Score = transform.FindChild("Score").transform.FindChild("Player1Score").GetComponent<Text>();
+        P2Score = transform.FindChild("Score").transform.FindChild("Player2Score").GetComponent<Text>();
+        Timer = transform.FindChild("Score").transform.FindChild("Timer").GetComponent<Text>();
 
+        Timer.text = TimerInMins.ToString() + ":00";
+        TimerInMins *= 60;
     }
 
     public void setSlider(float value)
     {
-        slider.value = value;
+        healthSlider.value = value;
     }
 
-    public void startRec()
+    public void stopRec(int recording)
     {
-        recIcon.color = Color.red;
+        //Update the number of recordings in play
+        recordingsCount += recording;
+        recordingCountText.text = "Recordings: " + recordingsCount.ToString();
     }
 
-    public void stopRec()
+    public void SetP1Score(int value)
     {
-        recIcon.color = Color.white;
+        p1ScoreCount += value;
+        P1Score.text = p1ScoreCount.ToString();
     }
 
-    public void setPlaybackCounter(int value)
+    public void SetP2Score(int value)
     {
-        playCount = value;
-        playCounter.text = playCount.ToString();
-
-
-        if (playCount > 0)
-            playIcon.color = Color.green;
-        else
-        {
-            playIcon.color = Color.white;
-            setSlider(0);
-        }
+        p2ScoreCount += value;
+        P2Score.text = p2ScoreCount.ToString();
     }
 
-    public void setLives(int t)
+    void Update()
     {
-        if (t == -1)
-        {
-            livesCount.text = "X";
-        }
-        else
-            livesCount.text = t.ToString();
-
-        if (t > 0 || t == -1)
-            heartIcon.color = Color.red;
-        else
-        {
-            heartIcon.color = Color.gray;
-        }
+        TimerInMins -= Time.deltaTime;
+        Timer.text = ((int)(TimerInMins / 60)).ToString() + ":" + ((int)(TimerInMins % 60)).ToString("00");
     }
-
-
 }

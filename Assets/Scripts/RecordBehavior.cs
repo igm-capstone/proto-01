@@ -14,7 +14,6 @@ public struct FPSFrame
 }
 
 
-[RequireComponent(typeof(PlayerHUD))]
 [RequireComponent(typeof(PlayerController))]
 public class RecordBehavior : MonoBehaviour 
 {
@@ -28,17 +27,10 @@ public class RecordBehavior : MonoBehaviour
     private PlayerHUD hud;
     private PlayerController ctrl;
 
-	// Use this for initialization
 	void Awake()
     {
-        hud = GetComponent<PlayerHUD>();
+        hud = GameObject.Find("Canvas").GetComponent<PlayerHUD>();
         ctrl = GetComponent<PlayerController>();
-	}
-	
-	// Update is called once per frame
-	void Update() 
-    {
-	    
 	}
 
     void FixedUpdate()
@@ -48,7 +40,6 @@ public class RecordBehavior : MonoBehaviour
             if (frameCount < maxRecordedFrames)
             {
                 recordedFrames[frameCount].mIndex = frameCount++;
-                hud.setSlider((float)frameCount / (float)maxRecordedFrames);
             }
             else
             {
@@ -66,15 +57,14 @@ public class RecordBehavior : MonoBehaviour
             recordedFrames = new FPSFrame[maxRecordedFrames];
             isRecording = true;
         }
-        hud.startRec();
     }
 
     public void StopRecording () 
     {
         recordedFrames = recordedFrames.Take(frameCount - 1).ToArray();
         isRecording = false;
-        hud.stopRec();
-        ctrl.resetPlaybackCounter();
+        //Update the number of recordings in play
+        hud.stopRec(1);
     }
     //whats the offset?
     public void RecordFrameAction(float horizontal, float vertical, float offset, bool jump)

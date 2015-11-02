@@ -5,23 +5,18 @@ using System;
 public class RespawnableBehavior : MonoBehaviour {
 
     public Transform[] mRespawnPoint;
-    public GameObject playerPrefab;
-
-	public int maxSpawns = -1;
-	public int currentSpawn;
+	public int maxRecordingSpawns = -1;
+    //[NonSerialized]
+    public int recordingSpawnCount;
     RecordBehavior recorder;
     Vector3 spawnPos, spawnScale, spawnRot;
     public GameObject playbackPrefab;
+    private bool temp = true;
 
-
-    public bool temp = false;
-	// Use this for initialization
 	void Start () 
     {
         recorder = GetComponent<RecordBehavior>();
-		currentSpawn = maxSpawns;
-		gameObject.SendMessage("loseLives");
-
+		recordingSpawnCount = maxRecordingSpawns;
 
         //change the spawn point to where the player spawns in the start of the game
         spawnPos = transform.position;
@@ -29,43 +24,36 @@ public class RespawnableBehavior : MonoBehaviour {
         spawnRot = transform.rotation.eulerAngles;
 	}
 	
-	// Update is called once per frame
 	void Update () 
     {
-        if (currentSpawn <= 0 && currentSpawn != -1) 
+        //Stop Recording if recording limit reaches 5
+        if (recordingSpawnCount <= 0 && recordingSpawnCount != -1) 
         {
 			gameObject.SetActive(false);
 			return;
 		}
 	
+        //TODO when the player dies
         if (transform.position.y < -10.0)
         {
-            temp = true;
             do
             {
-                GameObject floors = GameObject.Find ("Floors");
-			    if(floors)
-			    {
-				    FloorManager flrMan = floors.GetComponent<FloorManager>();
-				    flrMan.spawnFloors();
-			    }
-			    if(currentSpawn != -1)
-				    currentSpawn--;
-			    gameObject.SendMessage("loseLives");
-
                 recorder.StopRecording();
-                SpawnRecording();
-            
-                spawnPlayer();
+
+                if (recordingSpawnCount != 0)
+                {
+                    recordingSpawnCount--;
+                    SpawnRecording();
+                }
+                
+                SpawnPlayer();
             } while (temp == false);
-			
-            //recorder.StartRecording();
         }
 	}
 
-    void spawnPlayer()
+    void SpawnPlayer()
     {
-        int rand = UnityEngine.Random.Range(0, 3);
+        int rand = UnityEngine.Random.Range(0, mRespawnPoint.Length);
         transform.position = mRespawnPoint[rand].position;
         transform.rotation = mRespawnPoint[rand].rotation;
         var rBody = GetComponent<Rigidbody>();
@@ -73,10 +61,10 @@ public class RespawnableBehavior : MonoBehaviour {
         {
             rBody.velocity = Vector3.zero;
         }
-        ResetTransform(mRespawnPoint[rand]);
+        StoreSpawnTransform(mRespawnPoint[rand]);
         recorder.StartRecording();
     }
-    public void ResetTransform(Transform t)
+    public void StoreSpawnTransform(Transform t)
     {
         spawnPos = t.position;
         spawnScale = t.localScale;
@@ -89,14 +77,12 @@ public class RespawnableBehavior : MonoBehaviour {
         coordinateSpace.transform.eulerAngles = spawnRot;
         coordinateSpace.transform.localScale = spawnScale;
 
-
         //Set the transform to spawn position of the player
         GameObject playbackGhost = Instantiate(playbackPrefab) as GameObject;
         playbackGhost.GetComponent<PlaybackBehavior>().coordinateSpace = coordinateSpace;
-
         playbackGhost.GetComponent<ActorBehaviour>().setSpeed(GetComponent<PlayerController>().speed);
         playbackGhost.GetComponent<ActorBehaviour>().setJumpForce(GetComponent<PlayerController>().jumpForce);
-
+      
         //Start Playback
         playbackGhost.GetComponent<PlaybackBehavior>().StartPlayback(recorder.recordedFrames, PlaybackMode.Loop, coordinateSpace);
     }

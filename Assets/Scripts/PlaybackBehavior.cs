@@ -56,21 +56,18 @@ public class PlaybackBehavior : MonoBehaviour
             else
             {
                 if (mode == PlaybackMode.RunOnce)
-                    //StopPlayback();
-                    Debug.Log("abc");
+                    Debug.Log("Play Once");
                 else if (mode == PlaybackMode.Loop)
+                {
+                    isPlaying = false;
                     StartPlayback(recordedFrames, PlaybackMode.Loop, startPosition);
+                }
             }
 
             Vector3 worldPos = new Vector3(transform.position.x, transform.position.y + healthPanelOffset, transform.position.z);
             Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
             healthSlider.transform.position = new Vector3(screenPos.x, screenPos.y, screenPos.z);
             healthSlider.value = 1.0f - ((float)frameCount / (float)recordedFrames.Length);
-
-            //Color current = r.materials[0].color;
-            //current.a = 1.0f - ((float)frameCount / (float)recordedFrames.Length);
-            //r.materials[0].color = current;
-
         }
     }
 
