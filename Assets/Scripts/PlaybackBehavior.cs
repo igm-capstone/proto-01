@@ -50,7 +50,7 @@ public class PlaybackBehavior : MonoBehaviour
                 float recordAngle = recordedFrames[0].mOffset;
                 float a = spaceAngle - recordAngle;
                 //Vector3 t = Quaternion.AngleAxis(a * Mathf.Rad2Deg, Vector3.up) * v;
-                actor.PerformActions(v.x, v.z, 0, 0, recordedFrames[frameCount].mJump,recordedFrames[frameCount].mShoot);
+                actor.PerformActions(v.x, v.z, recordedFrames[frameCount].mCamHorizontal, recordedFrames[frameCount].mCamVertical, recordedFrames[frameCount].mJump,recordedFrames[frameCount].mShoot);
 
                 frameCount++;
             }

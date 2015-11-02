@@ -118,7 +118,7 @@ public class ActorBehaviour : MonoBehaviour
 
         this.isJumping = jump;
 
-        if (isFPSEnabled && PlayerCamera!= null)
+        if (isFPSEnabled)
         {
             UpdateFPSCamera(camHorizontal, camVertical);
         }      

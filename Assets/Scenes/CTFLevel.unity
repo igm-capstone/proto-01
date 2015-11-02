@@ -357,7 +357,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   jumpForce: 20
-  justTeleported: 0
+  isFPSEnabled: 0
   FPSSensitivity: 3
   BulletPrefab: {fileID: 105970, guid: ae166d5ea4262034dbb8f8a36a2b1678, type: 2}
   BulletSpeed: 20
@@ -379,6 +379,7 @@ MonoBehaviour:
   isFPSEnabled: 1
   speed: 10
   jumpForce: 20
+  PlayerHealth: 100
   PlyrStartPos: {x: 0, y: 0, z: 0}
   playerId: 2
 --- !u!54 &78990097
@@ -1161,9 +1162,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: .200000003, y: .200000048, z: .330000013}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1476757994}
   m_Father: {fileID: 1767530138}
-  m_RootOrder: 2
+  m_RootOrder: 1
 --- !u!124 &283759329
 Behaviour:
   m_ObjectHideFlags: 0
@@ -1209,6 +1211,7 @@ Camera:
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
+  m_TargetEye: 3
   m_HDR: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -2956,7 +2959,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22414174, guid: 2b451bb92e600ca448bd33ffc615704b, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22421506, guid: 2b451bb92e600ca448bd33ffc615704b, type: 2}
       propertyPath: m_LocalScale.x
@@ -3583,7 +3586,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22414174, guid: 2b451bb92e600ca448bd33ffc615704b, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11456468, guid: 2b451bb92e600ca448bd33ffc615704b, type: 2}
       propertyPath: m_Text
@@ -3696,7 +3699,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 973961599}
   m_LocalRotation: {x: 0, y: .707106829, z: 0, w: .707106709}
-  m_LocalPosition: {x: -35.9300003, y: 4, z: 0}
+  m_LocalPosition: {x: -1.42999995, y: 4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 571318875}
@@ -4728,7 +4731,6 @@ Transform:
   - {fileID: 1995273673}
   - {fileID: 1018834791}
   - {fileID: 1802261603}
-  - {fileID: 1991392330}
   m_Father: {fileID: 78990091}
   m_RootOrder: 0
 --- !u!65 &1169141536
@@ -5533,6 +5535,7 @@ Camera:
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
+  m_TargetEye: 3
   m_HDR: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -5547,7 +5550,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: .199000001, y: .196999997, z: .330000013}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1991392330}
   m_Father: {fileID: 78990091}
   m_RootOrder: 1
 --- !u!1 &1333116356
@@ -6634,12 +6638,12 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1476757990}
   m_LocalRotation: {x: 0, y: 0, z: .382683456, w: .923879504}
-  m_LocalPosition: {x: .384994507, y: -.007999897, z: .771000028}
+  m_LocalPosition: {x: .184994504, y: -.207999945, z: .441000015}
   m_LocalScale: {x: .099999994, y: .099999994, z: .5}
   m_Children:
   - {fileID: 493214821}
-  m_Father: {fileID: 1767530138}
-  m_RootOrder: 1
+  m_Father: {fileID: 283759327}
+  m_RootOrder: 0
 --- !u!1 &1488454016
 GameObject:
   m_ObjectHideFlags: 0
@@ -7095,6 +7099,7 @@ Camera:
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
+  m_TargetEye: 3
   m_HDR: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -7652,7 +7657,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1466517109}
-  - {fileID: 1476757994}
   - {fileID: 283759327}
   m_Father: {fileID: 0}
   m_RootOrder: 4
@@ -7717,7 +7721,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   jumpForce: 20
-  justTeleported: 0
+  isFPSEnabled: 0
   FPSSensitivity: 3
   BulletPrefab: {fileID: 105970, guid: ae166d5ea4262034dbb8f8a36a2b1678, type: 2}
   BulletSpeed: 20
@@ -7739,6 +7743,7 @@ MonoBehaviour:
   isFPSEnabled: 1
   speed: 10
   jumpForce: 20
+  PlayerHealth: 100
   PlyrStartPos: {x: 0, y: 0, z: 0}
   playerId: 1
 --- !u!54 &1767530144
@@ -8443,12 +8448,12 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1991392329}
   m_LocalRotation: {x: 0, y: 0, z: .382683456, w: .923879504}
-  m_LocalPosition: {x: .384994507, y: -.007999897, z: .771000028}
+  m_LocalPosition: {x: .185994506, y: -.204999894, z: .441000015}
   m_LocalScale: {x: .099999994, y: .099999994, z: .5}
   m_Children:
   - {fileID: 814296234}
-  m_Father: {fileID: 1169141535}
-  m_RootOrder: 3
+  m_Father: {fileID: 1327573903}
+  m_RootOrder: 0
 --- !u!23 &1991392331
 MeshRenderer:
   m_ObjectHideFlags: 0

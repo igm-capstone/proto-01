@@ -11,7 +11,10 @@ public struct FPSFrame
     public float mVertical;
     public float mOffset;
     public bool mJump;
+    public float mCamHorizontal;
+    public float mCamVertical;
     public bool mShoot;
+
 }
 
 
@@ -68,7 +71,7 @@ public class RecordBehavior : MonoBehaviour
         hud.stopRec(1);
     }
     //whats the offset?
-    public void RecordFrameAction(float horizontal, float vertical, float offset, bool jump, bool shoot)
+    public void RecordFrameAction(float horizontal, float vertical, float offset, bool jump, bool shoot, float camHorizontal, float camVertical)
     {
        recordedFrames[frameCount].mHorizontal = horizontal;
        recordedFrames[frameCount].mVertical = vertical;
@@ -76,6 +79,8 @@ public class RecordBehavior : MonoBehaviour
        recordedFrames[frameCount].mJump = jump;
        recordedFrames[frameCount].mEmpty = false;
        recordedFrames[frameCount].mShoot = shoot;
+       recordedFrames[frameCount].mCamHorizontal = camHorizontal;
+       recordedFrames[frameCount].mCamVertical = camVertical;
     }
     
     public bool IsRecording()

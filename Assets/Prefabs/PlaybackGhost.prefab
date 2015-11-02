@@ -236,7 +236,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   jumpForce: 20
-  justTeleported: 0
+  isFPSEnabled: 1
   FPSSensitivity: 3
   BulletPrefab: {fileID: 105970, guid: ae166d5ea4262034dbb8f8a36a2b1678, type: 2}
   BulletSpeed: 20
@@ -333,6 +333,10 @@ Prefab:
       propertyPath: BulletPrefab
       value: 
       objectReference: {fileID: 105970, guid: ae166d5ea4262034dbb8f8a36a2b1678, type: 2}
+    - target: {fileID: 0}
+      propertyPath: isFPSEnabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 128400}

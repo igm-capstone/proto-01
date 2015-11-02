@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     public float jumpForce = 20;
 
+    public float PlayerHealth = 100;
+
     public Vector3 PlyrStartPos;
 
     [SerializeField]
@@ -44,7 +46,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    
+
     public void Update()
     {
         float horizontal, vertical;
@@ -52,16 +54,16 @@ public class PlayerController : MonoBehaviour
 
         //FPS Controls
         bool fireWeapon;
-        float camHorizontal, camVertical; 
+        float camHorizontal, camVertical;
 
         ReadPlayerInput(out horizontal, out vertical, out jump, out camHorizontal, out camVertical, out fireWeapon);
         actor.PerformActions(horizontal, vertical, camHorizontal, camVertical, jump, fireWeapon);
 
         if (recorder.IsRecording())
         {
-            recorder.RecordFrameAction(horizontal, vertical, Mathf.Atan2(transform.forward.x, transform.forward.z), jump, fireWeapon);
+            recorder.RecordFrameAction(horizontal, vertical, Mathf.Atan2(transform.forward.x, transform.forward.z), jump, fireWeapon,camHorizontal, camVertical);
         }
-    }    
+    }
 
     private void ReadPlayerInput(out float horizontal, out float vertical, out bool jump, out float camHorizontal, out float camVertical, out bool fireWeapon)
     {
@@ -78,4 +80,18 @@ public class PlayerController : MonoBehaviour
         else
             fireWeapon = false;
     }
+
+    /*
+    public void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Projectile")
+        {
+            PlayerHealth -= 1;
+            if (PlayerHealth <= 0)
+            {
+                Destroy(this.gameObject);
+            }
+        }
+    }
+*/
 }
