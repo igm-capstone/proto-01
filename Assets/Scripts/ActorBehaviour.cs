@@ -43,7 +43,6 @@ public class ActorBehaviour : MonoBehaviour
     public GameObject BulletPrefab;
     float BulletSpeed = 20.0f;
     public Transform WeaponFirePoint;
-    float FireRate = 10.0f;
 
     void Awake()
     {
@@ -128,7 +127,6 @@ public class ActorBehaviour : MonoBehaviour
         {
             ShootWeapon();
         }
-
     }
 
     public void setSpeed(float value)
@@ -164,6 +162,7 @@ public class ActorBehaviour : MonoBehaviour
             PlayerCamera.transform.localEulerAngles = new Vector3(currentCameraRotationX, 0f, 0f);
         }
     }
+
     public void ShootWeapon()
     {
         GameObject Projectile = (GameObject)Instantiate(BulletPrefab, WeaponFirePoint.position, Quaternion.identity);
