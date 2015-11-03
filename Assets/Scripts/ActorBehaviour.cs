@@ -30,7 +30,7 @@ public class ActorBehaviour : MonoBehaviour
 
     bool isJumping;
     bool isGrounded;
-    
+
     [NonSerialized]
     public bool justTeleported = false;
 
@@ -74,7 +74,6 @@ public class ActorBehaviour : MonoBehaviour
     {
         if (collision.transform.tag == "Platform")
         {
-
             // is only grounded if touched the ground from the top (positive normal y component)
             foreach (var contact in collision.contacts)
             {
@@ -95,7 +94,7 @@ public class ActorBehaviour : MonoBehaviour
         }
     }
 
-    public void PerformActions(float horizontal, float vertical, float camHorizontal, float camVertical, bool jump = false,  bool fireWeapon = false)
+    public void PerformActions(float horizontal, float vertical, float camHorizontal, float camVertical, bool jump = false, bool fireWeapon = false)
     {
         // Test for input
         if (Mathf.Abs(horizontal) > Mathf.Epsilon || Mathf.Abs(vertical) > Mathf.Epsilon)
@@ -103,7 +102,7 @@ public class ActorBehaviour : MonoBehaviour
             //Test for kind of controls
             if (isFPSEnabled)
             {// FPS controls
-                velocity = transform.forward * vertical * speed + transform.right * horizontal * speed;                
+                velocity = transform.forward * vertical * speed + transform.right * horizontal * speed;
             }
             else
             {
@@ -121,7 +120,7 @@ public class ActorBehaviour : MonoBehaviour
         if (isFPSEnabled)
         {
             UpdateFPSCamera(camHorizontal, camVertical);
-        }      
+        }
 
         if (fireWeapon)
         {
@@ -143,7 +142,7 @@ public class ActorBehaviour : MonoBehaviour
         isFPSEnabled = value;
     }
 
-    public void UpdateFPSCamera( float camHorizontal, float camVertical)
+    public void UpdateFPSCamera(float camHorizontal, float camVertical)
     {
         //Calculate rotation as a 3D vector (turning around)
         Vector3 rotation = new Vector3(0f, camHorizontal, 0f) * FPSSensitivity;

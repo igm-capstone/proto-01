@@ -56,7 +56,7 @@ public class RespawnableBehavior : MonoBehaviour {
         }
 	}
 
-    void SpawnPlayer()
+    public void SpawnPlayer()
     {
         int rand = UnityEngine.Random.Range(0, mRespawnPoint.Length);
         transform.position = mRespawnPoint[rand].position;
@@ -75,7 +75,7 @@ public class RespawnableBehavior : MonoBehaviour {
         spawnScale = t.localScale;
         spawnRot = t.rotation.eulerAngles;
     }
-    void SpawnRecording()
+    public void SpawnRecording()
     {
         GameObject coordinateSpace = new GameObject();
         coordinateSpace.transform.position = spawnPos;

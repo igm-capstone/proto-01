@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
 
         if (recorder.IsRecording())
         {
-            recorder.RecordFrameAction(horizontal, vertical, Mathf.Atan2(transform.forward.x, transform.forward.z), jump, fireWeapon,camHorizontal, camVertical);
+            recorder.RecordFrameAction(horizontal, vertical, Mathf.Atan2(transform.forward.x, transform.forward.z), jump, fireWeapon, camHorizontal, camVertical);
         }
     }
 
@@ -81,17 +81,21 @@ public class PlayerController : MonoBehaviour
             fireWeapon = false;
     }
 
-    /*
-    public void OnCollisionEnter(Collision collision)
+    public void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.tag == "Projectile")
+        if (other.transform.tag == "Bullet")
         {
-            PlayerHealth -= 1;
+            PlayerHealth -= 10;
             if (PlayerHealth <= 0)
             {
-                Destroy(this.gameObject);
+                PlayerHealth = 100;
+                //Destroy(this.gameObject);
+                GetComponent<RespawnableBehavior>().SpawnPlayer();
+                GetComponent<RespawnableBehavior>().SpawnRecording();
+
             }
         }
+
     }
-*/
+
 }

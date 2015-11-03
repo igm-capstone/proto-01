@@ -295,7 +295,7 @@ Transform:
   - {fileID: 1169141535}
   - {fileID: 1327573903}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
 --- !u!114 &78990092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,8 +312,6 @@ MonoBehaviour:
   - {fileID: 973961600}
   - {fileID: 1501468171}
   - {fileID: 1872758660}
-  - {fileID: 524249103}
-  - {fileID: 811895644}
   maxRecordingSpawns: 5
   recordingSpawnCount: 0
   playbackPrefab: {fileID: 128400, guid: 082b95e2849991644ae38470669a44b0, type: 2}
@@ -355,9 +353,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd1abac2c5c2f3408beaf382e121d76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 35
   jumpForce: 20
-  isFPSEnabled: 0
+  isFPSEnabled: 1
   FPSSensitivity: 3
   BulletPrefab: {fileID: 105970, guid: ae166d5ea4262034dbb8f8a36a2b1678, type: 2}
   BulletSpeed: 20
@@ -2113,7 +2111,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 493214820}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: .5}
+  m_LocalPosition: {x: 0, y: 0, z: .874000013}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1476757994}
@@ -2457,7 +2455,7 @@ Transform:
   - {fileID: 524249103}
   - {fileID: 811895644}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
 --- !u!1 &586127233
 GameObject:
   m_ObjectHideFlags: 0
@@ -2877,7 +2875,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1386537015}
-  m_RootOrder: 3
+  m_RootOrder: 4
 --- !u!1001 &731600415
 Prefab:
   m_ObjectHideFlags: 0
@@ -2959,7 +2957,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22414174, guid: 2b451bb92e600ca448bd33ffc615704b, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22421506, guid: 2b451bb92e600ca448bd33ffc615704b, type: 2}
       propertyPath: m_LocalScale.x
@@ -3586,7 +3584,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22414174, guid: 2b451bb92e600ca448bd33ffc615704b, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11456468, guid: 2b451bb92e600ca448bd33ffc615704b, type: 2}
       propertyPath: m_Text
@@ -4334,7 +4332,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1386537015}
-  m_RootOrder: 2
+  m_RootOrder: 3
 --- !u!1 &1116932379
 GameObject:
   m_ObjectHideFlags: 0
@@ -5894,12 +5892,13 @@ Transform:
   m_LocalPosition: {x: 156.800003, y: .589999974, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1893649302}
   - {fileID: 1862180144}
   - {fileID: 1488454017}
   - {fileID: 1110829837}
   - {fileID: 716444766}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 4
 --- !u!1 &1415239788
 GameObject:
   m_ObjectHideFlags: 0
@@ -6670,7 +6669,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1386537015}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!1 &1501468170
 GameObject:
   m_ObjectHideFlags: 0
@@ -7116,7 +7115,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 3
 --- !u!1 &1605868210
 GameObject:
   m_ObjectHideFlags: 0
@@ -7221,7 +7220,7 @@ Transform:
   - {fileID: 157542423}
   - {fileID: 1354584590}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
 --- !u!1 &1625520571
 GameObject:
   m_ObjectHideFlags: 0
@@ -7256,7 +7255,7 @@ RectTransform:
   - {fileID: 924922524}
   - {fileID: 84738310}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -7659,7 +7658,7 @@ Transform:
   - {fileID: 1466517109}
   - {fileID: 283759327}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 2
 --- !u!114 &1767530139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7673,11 +7672,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mRespawnPoint:
-  - {fileID: 973961600}
-  - {fileID: 1501468171}
-  - {fileID: 1872758660}
-  - {fileID: 524249103}
-  - {fileID: 811895644}
+  - {fileID: 1893649302}
+  - {fileID: 1862180144}
+  - {fileID: 1488454017}
   maxRecordingSpawns: 5
   recordingSpawnCount: 0
   playbackPrefab: {fileID: 128400, guid: 082b95e2849991644ae38470669a44b0, type: 2}
@@ -7719,9 +7716,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd1abac2c5c2f3408beaf382e121d76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 35
   jumpForce: 20
-  isFPSEnabled: 0
+  isFPSEnabled: 1
   FPSSensitivity: 3
   BulletPrefab: {fileID: 105970, guid: ae166d5ea4262034dbb8f8a36a2b1678, type: 2}
   BulletSpeed: 20
@@ -7821,7 +7818,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 1
 --- !u!1 &1802261602
 GameObject:
   m_ObjectHideFlags: 0
@@ -8011,7 +8008,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1386537015}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!1 &1872758659
 GameObject:
   m_ObjectHideFlags: 0
@@ -8060,11 +8057,11 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1893649301}
-  m_LocalRotation: {x: 0, y: -.707105994, z: 0, w: .707107604}
-  m_LocalPosition: {x: 188.899994, y: 3.20000005, z: -.00999999978}
+  m_LocalRotation: {x: 0, y: .707108021, z: 0, w: .707105577}
+  m_LocalPosition: {x: 8.16999817, y: 2.61000013, z: .00999999978}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1386537015}
   m_RootOrder: 0
 --- !u!1 &1932212969
 GameObject:
