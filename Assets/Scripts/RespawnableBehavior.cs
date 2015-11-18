@@ -14,7 +14,8 @@ public class RespawnableBehavior : MonoBehaviour {
 	void Start () {
 		currentSpawn = maxSpawns;
         mRespawnPoint = transform.position;
-		gameObject.SendMessage("loseLives");
+        if(gameObject.GetComponent<PlayerController>() !=  null)
+		    gameObject.SendMessage("loseLives");
 //        Debug.Log(this.name + ": " + mRespawnPoint.ToString());
 	}
 	
@@ -34,7 +35,8 @@ public class RespawnableBehavior : MonoBehaviour {
 			}
 			if(currentSpawn != -1)
 				currentSpawn--;
-			gameObject.SendMessage("loseLives");
+            if (gameObject.GetComponent<PlayerController>() != null)
+			    gameObject.SendMessage("loseLives");
             transform.position = mRespawnPoint;
 			var rBody = GetComponent<Rigidbody>();
 			if (rBody) 

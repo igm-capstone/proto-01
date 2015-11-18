@@ -9,7 +9,7 @@ public class PlayerGoal : MonoBehaviour {
     [SerializeField]
     [Range(1, 2)]
     short reqPlayerId = 1;
-
+    public GameObject nextLevel, restartLevel;
 
     void Awake()
     {
@@ -35,6 +35,9 @@ public class PlayerGoal : MonoBehaviour {
                     victoryText.color = new Color(255f,0,0);
                 }
                 victoryText.enabled = true;
+
+                nextLevel.SetActive(true);
+                restartLevel.SetActive(true);
 
             }
         }

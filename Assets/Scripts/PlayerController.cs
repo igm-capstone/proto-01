@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour {
         transform.position = GetComponent<RespawnableBehavior>().mRespawnPoint;
     }
 
-	void loseLives()
+	public void loseLives()
 	{
 		hud.setLives (gameObject.GetComponent<RespawnableBehavior> ().currentSpawn);
 	}
