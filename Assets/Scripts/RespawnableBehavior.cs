@@ -9,6 +9,7 @@ public class RespawnableBehavior : MonoBehaviour {
 
 	public int maxSpawns = -1;
 	public int currentSpawn;
+    public GameObject previousLevel, restartLevel;
 
 	// Use this for initialization
 	void Start () {
@@ -33,10 +34,19 @@ public class RespawnableBehavior : MonoBehaviour {
 				FloorManager flrMan = floors.GetComponent<FloorManager>();
 				flrMan.spawnFloors();
 			}
-			if(currentSpawn != -1)
+
+            if (currentSpawn != -1)
+            {
 				currentSpawn--;
-            if (gameObject.GetComponent<PlayerController>() != null)
-			    gameObject.SendMessage("loseLives");
+                if (gameObject.GetComponent<PlayerController>() != null)
+			        gameObject.SendMessage("loseLives");
+                if (currentSpawn == 0)
+                {
+                    FindObjectOfType<PlayerGoal>().DisplayWinner(gameObject.name);
+                    restartLevel.SetActive(true);
+                    previousLevel.SetActive(true);
+                }
+            }
             transform.position = mRespawnPoint;
 			var rBody = GetComponent<Rigidbody>();
 			if (rBody) 

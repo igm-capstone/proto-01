@@ -3,13 +3,15 @@ using System.Collections;
 
 public class ChangeLevel : MonoBehaviour 
 {
-    public void NextLevel()
+    public void CircularFloorTrap()
     {       
         Application.LoadLevel("CircularFloorTrap");
     }
 
-    public void RestartLevel()
+    public void BlockandLadder()
     {
         Application.LoadLevel("BlocksAndLadders");
     }
+
+
 }

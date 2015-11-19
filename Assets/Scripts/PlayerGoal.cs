@@ -10,6 +10,7 @@ public class PlayerGoal : MonoBehaviour {
     [Range(1, 2)]
     short reqPlayerId = 1;
     public GameObject nextLevel, restartLevel;
+    public Color blueVictoryTextColor;
 
     void Awake()
     {
@@ -27,12 +28,12 @@ public class PlayerGoal : MonoBehaviour {
                 if (reqPlayerId == 1)
                 {
                     victoryText.text = "Blue Player Wins!";
-                    victoryText.color = new Color(0, 0, 255);
+                    victoryText.color = blueVictoryTextColor;
                 }
                 else if (reqPlayerId == 2)
                 {
                     victoryText.text = "Red Player Wins!";
-                    victoryText.color = new Color(255f,0,0);
+                    victoryText.color = new Color(1, 0, 0);
                 }
                 victoryText.enabled = true;
 
@@ -42,5 +43,20 @@ public class PlayerGoal : MonoBehaviour {
             }
         }
 
+    }   
+
+    public void DisplayWinner(string playerName)
+    {
+        if (playerName == "Player 01")
+        {
+            victoryText.text = "Red Player Wins!";
+            victoryText.color = new Color(1, 0, 0); 
+        }
+        else if (playerName == "Player 02")
+        {
+            victoryText.text = "Blue Player Wins!";
+            victoryText.color = blueVictoryTextColor;
+        }
+        victoryText.enabled = true;
     }
 }
